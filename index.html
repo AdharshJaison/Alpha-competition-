@@ -1,0 +1,4766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ALPHA — Win Your Dream</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@300;400;500;600;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --red: #E0001B;
+  --red-dark: #9B0013;
+  --red-bright: #FF1A35;
+  --black: #0A0A0A;
+  --dark: #111111;
+  --dark2: #1A1A1A;
+  --dark3: #222222;
+  --gold: #FFD700;
+  --gold2: #B8860B;
+  --white: #F5F5F5;
+  --gray: #888888;
+  --gray2: #444444;
+  --font-display: 'Bebas Neue', sans-serif;
+  --font-body: 'Rajdhani', sans-serif;
+  --font-accent: 'Orbitron', sans-serif;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* SCROLLBAR */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--dark); }
+::-webkit-scrollbar-thumb { background: var(--red); border-radius: 3px; }
+
+/* PAGES */
+.page { display: none; min-height: 100vh; }
+.page.active { display: block; }
+
+/* NAV */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  background: linear-gradient(180deg, rgba(10,10,10,0.98) 0%, rgba(10,10,10,0.85) 100%);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(224,0,27,0.3);
+  padding: 0 2rem;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-logo {
+  font-family: var(--font-accent);
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: var(--white);
+  cursor: pointer;
+  letter-spacing: 4px;
+  text-decoration: none;
+}
+
+.nav-logo span {
+  color: var(--red);
+  text-shadow: 0 0 20px rgba(224,0,27,0.8);
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+  align-items: center;
+}
+
+.nav-links a {
+  color: var(--gray);
+  text-decoration: none;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  transition: color 0.3s;
+  cursor: pointer;
+}
+
+.nav-links a:hover { color: var(--red); }
+
+.nav-cta {
+  background: var(--red);
+  color: white !important;
+  padding: 0.5rem 1.5rem;
+  border-radius: 2px;
+  transition: background 0.3s !important;
+}
+
+.nav-cta:hover { background: var(--red-bright) !important; color: white !important; }
+
+.nav-user {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.nav-balance {
+  background: var(--dark3);
+  border: 1px solid var(--red);
+  padding: 0.3rem 1rem;
+  border-radius: 2px;
+  font-family: var(--font-accent);
+  font-size: 0.75rem;
+  color: var(--gold);
+}
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.hamburger span {
+  display: block;
+  width: 25px;
+  height: 2px;
+  background: var(--white);
+  transition: all 0.3s;
+}
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding-top: 70px;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(ellipse at 20% 50%, rgba(224,0,27,0.15) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 20%, rgba(224,0,27,0.1) 0%, transparent 50%),
+    linear-gradient(180deg, var(--black) 0%, var(--dark) 100%);
+}
+
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(rgba(224,0,27,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(224,0,27,0.05) 1px, transparent 1px);
+  background-size: 80px 80px;
+  animation: gridMove 20s linear infinite;
+}
+
+@keyframes gridMove {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(80px); }
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 2rem;
+  max-width: 900px;
+}
+
+.hero-badge {
+  display: inline-block;
+  background: rgba(224,0,27,0.15);
+  border: 1px solid var(--red);
+  color: var(--red);
+  font-family: var(--font-accent);
+  font-size: 0.65rem;
+  letter-spacing: 4px;
+  padding: 0.4rem 1.5rem;
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 10vw, 9rem);
+  line-height: 0.9;
+  letter-spacing: 4px;
+  margin-bottom: 0.5rem;
+  color: var(--white);
+}
+
+.hero-title .accent {
+  color: var(--red);
+  text-shadow: 0 0 40px rgba(224,0,27,0.6);
+  display: block;
+}
+
+.hero-subtitle {
+  font-family: var(--font-body);
+  font-size: 1.2rem;
+  color: var(--gray);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 2.5rem;
+}
+
+.hero-prize {
+  font-family: var(--font-accent);
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  color: var(--gold);
+  text-shadow: 0 0 30px rgba(255,215,0,0.5);
+  margin-bottom: 1rem;
+  font-weight: 900;
+}
+
+.hero-ticket-price {
+  font-size: 1rem;
+  color: var(--gray);
+  margin-bottom: 2.5rem;
+  letter-spacing: 2px;
+}
+
+.hero-ticket-price strong {
+  color: var(--red);
+  font-size: 1.3rem;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--red);
+  color: white;
+  padding: 1rem 3rem;
+  font-family: var(--font-accent);
+  font-size: 0.85rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s;
+  text-decoration: none;
+  clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.4s;
+}
+
+.btn-primary:hover::before { left: 100%; }
+.btn-primary:hover { background: var(--red-bright); transform: translateY(-2px); box-shadow: 0 10px 30px rgba(224,0,27,0.4); }
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: transparent;
+  color: var(--white);
+  padding: 1rem 2.5rem;
+  font-family: var(--font-accent);
+  font-size: 0.85rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  border: 1px solid var(--gray2);
+  cursor: pointer;
+  transition: all 0.3s;
+  text-decoration: none;
+  clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+}
+
+.btn-secondary:hover {
+  border-color: var(--red);
+  color: var(--red);
+  transform: translateY(-2px);
+}
+
+.hero-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 4rem;
+}
+
+.hero-stats {
+  display: flex;
+  gap: 3rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.stat {
+  text-align: center;
+}
+
+.stat-number {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  color: var(--red);
+  display: block;
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 0.75rem;
+  color: var(--gray);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+/* SECTIONS */
+section {
+  padding: 6rem 2rem;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.section-badge {
+  display: inline-block;
+  color: var(--red);
+  font-family: var(--font-accent);
+  font-size: 0.65rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  padding: 0.3rem 1rem;
+  border: 1px solid rgba(224,0,27,0.3);
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  letter-spacing: 3px;
+  color: var(--white);
+  line-height: 1;
+}
+
+.section-title span { color: var(--red); }
+
+/* COMPETITIONS GRID */
+.competitions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.comp-card {
+  background: var(--dark2);
+  border: 1px solid var(--dark3);
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s;
+  group: true;
+}
+
+.comp-card:hover {
+  border-color: var(--red);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.5), 0 0 0 1px rgba(224,0,27,0.3);
+}
+
+.comp-card-img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  display: block;
+  background: linear-gradient(135deg, var(--dark3) 0%, var(--dark2) 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.comp-card-img-placeholder {
+  width: 100%;
+  height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4rem;
+  background: linear-gradient(135deg, var(--dark3) 0%, var(--dark2) 100%);
+  position: relative;
+}
+
+.comp-card-img-placeholder::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, rgba(224,0,27,0.1) 0%, transparent 60%);
+}
+
+.comp-badge {
+  position: absolute;
+  top: 1rem; left: 1rem;
+  background: var(--red);
+  color: white;
+  font-family: var(--font-accent);
+  font-size: 0.6rem;
+  letter-spacing: 2px;
+  padding: 0.3rem 0.8rem;
+  text-transform: uppercase;
+  z-index: 2;
+}
+
+.comp-badge.sold-out { background: var(--gray2); }
+.comp-badge.ending { background: var(--gold2); }
+
+.comp-card-body {
+  padding: 1.5rem;
+}
+
+.comp-title {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  letter-spacing: 2px;
+  color: var(--white);
+  margin-bottom: 0.5rem;
+  line-height: 1.1;
+}
+
+.comp-value {
+  font-family: var(--font-accent);
+  font-size: 0.8rem;
+  color: var(--gold);
+  letter-spacing: 2px;
+  margin-bottom: 1rem;
+}
+
+/* PROGRESS BAR */
+.progress-wrap {
+  margin-bottom: 1rem;
+}
+
+.progress-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: var(--gray);
+  letter-spacing: 1px;
+  margin-bottom: 0.4rem;
+}
+
+.progress-bar {
+  height: 8px;
+  background: var(--dark3);
+  border-radius: 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--red-dark), var(--red-bright));
+  transition: width 1.2s cubic-bezier(0.4,0,0.2,1);
+  position: relative;
+}
+
+.progress-fill.urgent {
+  background: linear-gradient(90deg, #ff6b00, #ff0000);
+  animation: pulseBar 1s infinite alternate;
+}
+
+.progress-fill.critical {
+  background: linear-gradient(90deg, #ff0000, #ff4444);
+  animation: pulseBar 0.5s infinite alternate;
+}
+
+@keyframes pulseBar {
+  from { opacity: 1; }
+  to { opacity: 0.7; }
+}
+
+.progress-fill::after {
+  content: '';
+  position: absolute;
+  right: 0; top: 0;
+  width: 4px; height: 100%;
+  background: white;
+  box-shadow: 0 0 10px white;
+}
+
+/* TICKET SOLD METER */
+.sold-meter {
+  background: var(--dark3);
+  border: 1px solid var(--dark3);
+  padding: 0.8rem 1rem;
+  margin-bottom: 0.8rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.sold-meter-bg {
+  position: absolute;
+  top: 0; left: 0; bottom: 0;
+  transition: width 1.2s cubic-bezier(0.4,0,0.2,1);
+  opacity: 0.12;
+}
+
+.sold-meter-bg.low    { background: var(--red); }
+.sold-meter-bg.mid    { background: #ff6b00; }
+.sold-meter-bg.high   { background: #ffcc00; }
+.sold-meter-bg.critical { background: #ff0000; animation: flashBg 0.8s infinite alternate; }
+
+@keyframes flashBg {
+  from { opacity: 0.12; }
+  to { opacity: 0.22; }
+}
+
+.sold-meter-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sold-pct-big {
+  font-family: var(--font-accent);
+  font-size: 1.4rem;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.sold-pct-big.low    { color: var(--red); }
+.sold-pct-big.mid    { color: #ff8c00; }
+.sold-pct-big.high   { color: #ffcc00; }
+.sold-pct-big.critical { color: #ff4444; text-shadow: 0 0 12px rgba(255,0,0,0.6); }
+
+.sold-meter-right {
+  text-align: right;
+}
+
+.sold-remaining {
+  font-family: var(--font-accent);
+  font-size: 0.65rem;
+  letter-spacing: 1px;
+  color: var(--gray);
+}
+
+.sold-remaining strong {
+  color: var(--white);
+  font-size: 0.9rem;
+}
+
+.urgency-label {
+  display: inline-block;
+  font-family: var(--font-accent);
+  font-size: 0.55rem;
+  letter-spacing: 2px;
+  padding: 0.2rem 0.6rem;
+  text-transform: uppercase;
+  margin-top: 0.2rem;
+}
+
+.urgency-label.low     { background: rgba(224,0,27,0.15); color: var(--red); border: 1px solid rgba(224,0,27,0.3); }
+.urgency-label.mid     { background: rgba(255,107,0,0.15); color: #ff8c00; border: 1px solid rgba(255,107,0,0.3); }
+.urgency-label.high    { background: rgba(255,204,0,0.15); color: #ffcc00; border: 1px solid rgba(255,204,0,0.3); }
+.urgency-label.critical { background: rgba(255,0,0,0.2); color: #ff4444; border: 1px solid rgba(255,0,0,0.5); animation: flashLabel 0.6s infinite alternate; }
+
+@keyframes flashLabel {
+  from { opacity: 1; }
+  to { opacity: 0.5; }
+}
+
+/* LIVE COUNTER ANIMATION */
+.counter-anim {
+  display: inline-block;
+  transition: transform 0.15s;
+}
+
+.counter-anim.tick {
+  transform: translateY(-2px);
+  color: var(--red);
+}
+
+/* COUNTDOWN */
+.countdown {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.countdown-item {
+  flex: 1;
+  background: var(--dark3);
+  border: 1px solid var(--gray2);
+  text-align: center;
+  padding: 0.5rem 0.3rem;
+}
+
+.countdown-num {
+  font-family: var(--font-accent);
+  font-size: 1.2rem;
+  color: var(--red);
+  display: block;
+  line-height: 1;
+}
+
+.countdown-label {
+  font-size: 0.55rem;
+  color: var(--gray);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.comp-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.comp-price {
+  font-family: var(--font-accent);
+  font-size: 1.1rem;
+  color: var(--white);
+}
+
+.comp-price span {
+  font-size: 0.7rem;
+  color: var(--gray);
+  display: block;
+  letter-spacing: 1px;
+}
+
+/* TICKER */
+.ticker-wrap {
+  background: var(--red);
+  overflow: hidden;
+  padding: 0.6rem 0;
+  position: relative;
+}
+
+.ticker-content {
+  display: flex;
+  animation: ticker 30s linear infinite;
+  white-space: nowrap;
+}
+
+.ticker-item {
+  font-family: var(--font-accent);
+  font-size: 0.7rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  padding: 0 3rem;
+  color: white;
+}
+
+.ticker-item::before {
+  content: '★';
+  margin-right: 1rem;
+  color: var(--gold);
+}
+
+@keyframes ticker {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* HOW IT WORKS */
+.how-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.how-card {
+  text-align: center;
+  padding: 2rem 1.5rem;
+  border: 1px solid var(--dark3);
+  background: var(--dark2);
+  position: relative;
+  transition: all 0.3s;
+}
+
+.how-card:hover {
+  border-color: var(--red);
+  transform: translateY(-4px);
+}
+
+.how-num {
+  font-family: var(--font-display);
+  font-size: 5rem;
+  color: rgba(224,0,27,0.1);
+  line-height: 1;
+  position: absolute;
+  top: 0.5rem; right: 1rem;
+}
+
+.how-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.how-title {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  letter-spacing: 2px;
+  color: var(--white);
+  margin-bottom: 0.5rem;
+}
+
+.how-desc {
+  font-size: 0.9rem;
+  color: var(--gray);
+  line-height: 1.6;
+}
+
+/* WINNERS */
+.winners-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.winner-card {
+  background: var(--dark2);
+  border: 1px solid var(--dark3);
+  padding: 1.5rem;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  transition: border-color 0.3s;
+}
+
+.winner-card:hover { border-color: var(--gold2); }
+
+.winner-avatar {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--red-dark), var(--red));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  color: white;
+  flex-shrink: 0;
+  border: 2px solid var(--gold2);
+}
+
+.winner-info { flex: 1; }
+
+.winner-name {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--white);
+  margin-bottom: 0.2rem;
+}
+
+.winner-prize {
+  font-size: 0.85rem;
+  color: var(--gold);
+  font-family: var(--font-accent);
+  letter-spacing: 1px;
+  font-size: 0.7rem;
+}
+
+.winner-date {
+  font-size: 0.75rem;
+  color: var(--gray);
+}
+
+/* MODAL */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.92);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.modal {
+  background: var(--dark2);
+  border: 1px solid var(--red);
+  max-width: 500px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  transform: translateY(20px);
+  transition: transform 0.3s;
+}
+
+.modal-overlay.active .modal {
+  transform: translateY(0);
+}
+
+.modal-header {
+  background: var(--red);
+  padding: 1.5rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-title {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  letter-spacing: 3px;
+  color: white;
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  line-height: 1;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+
+.modal-close:hover { opacity: 1; }
+
+.modal-body {
+  padding: 2rem;
+}
+
+/* FORMS */
+.form-group {
+  margin-bottom: 1.2rem;
+}
+
+.form-label {
+  display: block;
+  font-family: var(--font-accent);
+  font-size: 0.65rem;
+  letter-spacing: 3px;
+  color: var(--gray);
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.form-input {
+  width: 100%;
+  background: var(--dark3);
+  border: 1px solid var(--gray2);
+  color: var(--white);
+  padding: 0.8rem 1rem;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  transition: border-color 0.3s;
+  outline: none;
+  border-radius: 0;
+}
+
+.form-input:focus { border-color: var(--red); }
+
+.form-input::placeholder { color: var(--gray); }
+
+.form-divider {
+  text-align: center;
+  color: var(--gray);
+  font-size: 0.85rem;
+  margin: 1rem 0;
+  position: relative;
+}
+
+.form-divider::before, .form-divider::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 40%;
+  height: 1px;
+  background: var(--gray2);
+}
+
+.form-divider::before { left: 0; }
+.form-divider::after { right: 0; }
+
+.form-link {
+  color: var(--red);
+  cursor: pointer;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.form-link:hover { text-decoration: underline; }
+
+/* TICKET SELECTOR */
+.ticket-selector {
+  background: var(--dark3);
+  border: 1px solid var(--gray2);
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.ticket-selector-label {
+  font-family: var(--font-accent);
+  font-size: 0.65rem;
+  letter-spacing: 3px;
+  color: var(--gray);
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.ticket-amounts {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.ticket-btn {
+  background: var(--dark2);
+  border: 1px solid var(--gray2);
+  color: var(--white);
+  padding: 0.6rem 1rem;
+  font-family: var(--font-accent);
+  font-size: 0.75rem;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.ticket-btn:hover, .ticket-btn.active {
+  background: var(--red);
+  border-color: var(--red);
+  color: white;
+}
+
+.ticket-custom {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.ticket-counter {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  border: 1px solid var(--gray2);
+}
+
+.ticket-counter-btn {
+  background: var(--dark2);
+  border: none;
+  color: var(--white);
+  width: 40px; height: 40px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ticket-counter-btn:hover { background: var(--red); }
+
+.ticket-count-display {
+  background: var(--dark3);
+  color: var(--white);
+  width: 60px; height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-accent);
+  font-size: 1rem;
+  border-left: 1px solid var(--gray2);
+  border-right: 1px solid var(--gray2);
+}
+
+.ticket-total {
+  background: var(--dark2);
+  border: 1px solid var(--red);
+  padding: 1rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.ticket-total-label {
+  font-family: var(--font-accent);
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  color: var(--gray);
+  text-transform: uppercase;
+}
+
+.ticket-total-amount {
+  font-family: var(--font-accent);
+  font-size: 1.5rem;
+  color: var(--gold);
+  font-weight: 900;
+}
+
+/* QUESTION BOX */
+.question-box {
+  background: var(--dark3);
+  border: 1px solid var(--gray2);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.question-text {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--white);
+  margin-bottom: 1rem;
+  line-height: 1.5;
+}
+
+.question-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.question-option {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.7rem 1rem;
+  background: var(--dark2);
+  border: 1px solid var(--gray2);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.question-option:hover {
+  border-color: var(--red);
+}
+
+.question-option.selected {
+  border-color: var(--red);
+  background: rgba(224,0,27,0.1);
+}
+
+.question-option input[type="radio"] {
+  accent-color: var(--red);
+  width: 16px;
+  height: 16px;
+}
+
+.question-option label {
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+}
+
+/* PAYMENT */
+.payment-methods {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.payment-method {
+  flex: 1;
+  min-width: 100px;
+  padding: 0.8rem 0.5rem;
+  background: var(--dark3);
+  border: 1px solid var(--gray2);
+  cursor: pointer;
+  text-align: center;
+  font-family: var(--font-accent);
+  font-size: 0.6rem;
+  letter-spacing: 1px;
+  color: var(--gray);
+  transition: all 0.2s;
+}
+
+.payment-method:hover, .payment-method.active {
+  border-color: var(--red);
+  color: var(--white);
+}
+
+.payment-method .pm-icon { font-size: 1.5rem; display: block; margin-bottom: 0.3rem; }
+
+/* COMP DETAIL */
+.comp-detail-hero {
+  min-height: 60vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  padding-top: 70px;
+}
+
+.comp-detail-img {
+  background: linear-gradient(135deg, var(--dark3) 0%, var(--dark2) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 8rem;
+  position: relative;
+  overflow: hidden;
+  min-height: 400px;
+}
+
+.comp-detail-img::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent 60%, var(--dark2) 100%);
+}
+
+.comp-detail-info {
+  background: var(--dark2);
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* CART */
+.cart-wrap {
+  max-width: 900px;
+  margin: 0 auto;
+  padding-top: 70px;
+}
+
+.cart-items {
+  margin-bottom: 2rem;
+}
+
+.cart-item {
+  background: var(--dark2);
+  border: 1px solid var(--dark3);
+  padding: 1.5rem;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.cart-item-emoji {
+  font-size: 3rem;
+  flex-shrink: 0;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--dark3);
+}
+
+.cart-item-info { flex: 1; }
+
+.cart-item-title {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  letter-spacing: 2px;
+  margin-bottom: 0.3rem;
+}
+
+.cart-item-tickets {
+  font-size: 0.85rem;
+  color: var(--gray);
+}
+
+.cart-item-price {
+  font-family: var(--font-accent);
+  font-size: 1.2rem;
+  color: var(--gold);
+}
+
+.cart-item-remove {
+  background: none;
+  border: 1px solid var(--gray2);
+  color: var(--gray);
+  padding: 0.4rem 0.8rem;
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition: all 0.2s;
+}
+
+.cart-item-remove:hover {
+  border-color: var(--red);
+  color: var(--red);
+}
+
+.cart-summary {
+  background: var(--dark2);
+  border: 1px solid var(--dark3);
+  padding: 2rem;
+  position: sticky;
+  bottom: 2rem;
+}
+
+.cart-summary-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  font-size: 0.9rem;
+  color: var(--gray);
+}
+
+.cart-summary-total {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 0;
+  border-top: 1px solid var(--gray2);
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  letter-spacing: 2px;
+  color: var(--white);
+  margin-top: 0.5rem;
+}
+
+/* ACCOUNT */
+.account-wrap {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding-top: 70px;
+}
+
+.account-tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid var(--dark3);
+  margin-bottom: 2rem;
+}
+
+.account-tab {
+  padding: 1rem 2rem;
+  font-family: var(--font-accent);
+  font-size: 0.7rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gray);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+}
+
+.account-tab:hover { color: var(--white); }
+
+.account-tab.active {
+  color: var(--red);
+  border-bottom-color: var(--red);
+}
+
+.account-tab-content { display: none; }
+.account-tab-content.active { display: block; }
+
+.entry-card {
+  background: var(--dark2);
+  border: 1px solid var(--dark3);
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.entry-emoji {
+  font-size: 2rem;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--dark3);
+  flex-shrink: 0;
+}
+
+.entry-info { flex: 1; }
+
+.entry-title {
+  font-weight: 700;
+  margin-bottom: 0.2rem;
+}
+
+.entry-meta {
+  font-size: 0.8rem;
+  color: var(--gray);
+}
+
+.entry-status {
+  font-family: var(--font-accent);
+  font-size: 0.6rem;
+  letter-spacing: 2px;
+  padding: 0.3rem 0.8rem;
+  text-transform: uppercase;
+}
+
+.entry-status.live { background: rgba(0,255,100,0.1); color: #00ff64; border: 1px solid rgba(0,255,100,0.3); }
+.entry-status.won { background: rgba(255,215,0,0.1); color: var(--gold); border: 1px solid rgba(255,215,0,0.3); }
+.entry-status.ended { background: var(--dark3); color: var(--gray); border: 1px solid var(--gray2); }
+
+/* ADMIN */
+.admin-wrap {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  min-height: 100vh;
+  padding-top: 70px;
+}
+
+.admin-sidebar {
+  background: var(--dark2);
+  border-right: 1px solid var(--dark3);
+  padding: 2rem 0;
+  position: sticky;
+  top: 70px;
+  height: calc(100vh - 70px);
+  overflow-y: auto;
+}
+
+.admin-sidebar-title {
+  font-family: var(--font-accent);
+  font-size: 0.6rem;
+  letter-spacing: 3px;
+  color: var(--gray);
+  text-transform: uppercase;
+  padding: 0 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.admin-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.8rem 1.5rem;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--gray);
+  cursor: pointer;
+  transition: all 0.2s;
+  border-left: 3px solid transparent;
+}
+
+.admin-nav-item:hover {
+  color: var(--white);
+  background: rgba(255,255,255,0.03);
+}
+
+.admin-nav-item.active {
+  color: var(--red);
+  border-left-color: var(--red);
+  background: rgba(224,0,27,0.05);
+}
+
+.admin-nav-item .icon { font-size: 1rem; }
+
+.admin-content {
+  padding: 2rem;
+  overflow: hidden;
+}
+
+.admin-panel { display: none; }
+.admin-panel.active { display: block; }
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  background: var(--dark2);
+  border: 1px solid var(--dark3);
+  padding: 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 3px; height: 100%;
+  background: var(--red);
+}
+
+.stat-card-label {
+  font-family: var(--font-accent);
+  font-size: 0.6rem;
+  letter-spacing: 3px;
+  color: var(--gray);
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.stat-card-value {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  letter-spacing: 2px;
+  color: var(--white);
+  line-height: 1;
+  margin-bottom: 0.3rem;
+}
+
+.stat-card-change {
+  font-size: 0.8rem;
+  color: #00ff64;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--dark2);
+}
+
+.admin-table th {
+  background: var(--dark3);
+  padding: 0.8rem 1rem;
+  text-align: left;
+  font-family: var(--font-accent);
+  font-size: 0.6rem;
+  letter-spacing: 3px;
+  color: var(--gray);
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--gray2);
+}
+
+.admin-table td {
+  padding: 1rem;
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+  font-size: 0.9rem;
+  color: var(--white);
+}
+
+.admin-table tr:hover td {
+  background: rgba(255,255,255,0.02);
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  font-family: var(--font-accent);
+  font-size: 0.55rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.badge-success { background: rgba(0,255,100,0.1); color: #00ff64; border: 1px solid rgba(0,255,100,0.2); }
+.badge-danger { background: rgba(224,0,27,0.1); color: var(--red); border: 1px solid rgba(224,0,27,0.2); }
+.badge-warning { background: rgba(255,215,0,0.1); color: var(--gold); border: 1px solid rgba(255,215,0,0.2); }
+.badge-gray { background: var(--dark3); color: var(--gray); border: 1px solid var(--gray2); }
+
+.admin-form-card {
+  background: var(--dark2);
+  border: 1px solid var(--dark3);
+  padding: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.admin-form-title {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  letter-spacing: 2px;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--dark3);
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.btn-small {
+  padding: 0.5rem 1rem;
+  font-family: var(--font-accent);
+  font-size: 0.65rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s;
+}
+
+.btn-sm-red { background: var(--red); color: white; }
+.btn-sm-red:hover { background: var(--red-bright); }
+.btn-sm-gray { background: var(--dark3); color: var(--gray); border: 1px solid var(--gray2); }
+.btn-sm-gray:hover { border-color: var(--white); color: var(--white); }
+
+/* TOAST */
+.toast {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  background: var(--dark2);
+  border: 1px solid var(--red);
+  padding: 1rem 1.5rem;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--white);
+  z-index: 9999;
+  transform: translateX(200%);
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  max-width: 320px;
+  border-left: 4px solid var(--red);
+}
+
+.toast.show { transform: translateX(0); }
+.toast.success { border-color: #00ff64; border-left-color: #00ff64; }
+.toast.error { border-color: var(--red); border-left-color: var(--red); }
+
+.toast-title {
+  font-family: var(--font-accent);
+  font-size: 0.65rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 0.3rem;
+}
+
+.toast.success .toast-title { color: #00ff64; }
+
+/* FOOTER */
+footer {
+  background: var(--dark);
+  border-top: 1px solid var(--dark3);
+  padding: 4rem 2rem 2rem;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 3rem;
+  max-width: 1200px;
+  margin: 0 auto 3rem;
+}
+
+.footer-brand .logo {
+  font-family: var(--font-accent);
+  font-size: 1.5rem;
+  font-weight: 900;
+  letter-spacing: 4px;
+  color: var(--white);
+  margin-bottom: 1rem;
+}
+
+.footer-brand .logo span { color: var(--red); }
+
+.footer-brand p {
+  font-size: 0.85rem;
+  color: var(--gray);
+  line-height: 1.7;
+  max-width: 280px;
+}
+
+.footer-col-title {
+  font-family: var(--font-accent);
+  font-size: 0.65rem;
+  letter-spacing: 3px;
+  color: var(--white);
+  text-transform: uppercase;
+  margin-bottom: 1.2rem;
+}
+
+.footer-col ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.footer-col ul li a {
+  color: var(--gray);
+  text-decoration: none;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.footer-col ul li a:hover { color: var(--red); }
+
+.footer-bottom {
+  border-top: 1px solid var(--dark3);
+  padding-top: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.footer-bottom p {
+  font-size: 0.8rem;
+  color: var(--gray);
+}
+
+.footer-badges {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.footer-badge {
+  background: var(--dark3);
+  border: 1px solid var(--gray2);
+  padding: 0.3rem 0.8rem;
+  font-size: 0.65rem;
+  font-family: var(--font-accent);
+  letter-spacing: 1px;
+  color: var(--gray);
+}
+
+/* LEGAL PAGE */
+.legal-page {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 8rem 2rem 4rem;
+}
+
+.legal-page h1 {
+  font-family: var(--font-display);
+  font-size: 3rem;
+  letter-spacing: 3px;
+  color: var(--white);
+  margin-bottom: 0.5rem;
+}
+
+.legal-page .update-date {
+  color: var(--red);
+  font-family: var(--font-accent);
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  margin-bottom: 3rem;
+  display: block;
+}
+
+.legal-page h2 {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  letter-spacing: 2px;
+  color: var(--red);
+  margin: 2rem 0 1rem;
+}
+
+.legal-page h3 {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--white);
+  margin: 1.5rem 0 0.5rem;
+}
+
+.legal-page p {
+  color: var(--gray);
+  font-size: 0.95rem;
+  line-height: 1.8;
+  margin-bottom: 1rem;
+}
+
+.legal-page ul {
+  color: var(--gray);
+  font-size: 0.95rem;
+  line-height: 1.8;
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.legal-page li { margin-bottom: 0.4rem; }
+
+.legal-page .highlight-box {
+  background: rgba(224,0,27,0.05);
+  border: 1px solid rgba(224,0,27,0.2);
+  border-left: 4px solid var(--red);
+  padding: 1rem 1.5rem;
+  margin: 1.5rem 0;
+  color: var(--gray);
+  font-size: 0.9rem;
+}
+
+/* SUCCESS */
+.success-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 2rem;
+  text-align: center;
+}
+
+.success-content {
+  max-width: 500px;
+}
+
+.success-icon {
+  font-size: 5rem;
+  margin-bottom: 1.5rem;
+  display: block;
+  animation: bounceIn 0.6s;
+}
+
+@keyframes bounceIn {
+  0% { transform: scale(0); }
+  60% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+.success-title {
+  font-family: var(--font-display);
+  font-size: 3rem;
+  letter-spacing: 4px;
+  color: var(--white);
+  margin-bottom: 1rem;
+}
+
+.success-sub {
+  color: var(--gray);
+  font-size: 1rem;
+  margin-bottom: 2rem;
+}
+
+.ticket-ref {
+  background: var(--dark3);
+  border: 1px solid var(--red);
+  padding: 1rem 2rem;
+  font-family: var(--font-accent);
+  font-size: 1.2rem;
+  color: var(--gold);
+  letter-spacing: 4px;
+  margin-bottom: 2rem;
+  display: inline-block;
+}
+
+/* NOTIFICATION CENTER */
+.notif-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--red);
+  border-radius: 50%;
+  position: absolute;
+  top: -2px;
+  right: -2px;
+}
+
+/* SEARCH */
+.search-bar {
+  background: var(--dark3);
+  border: 1px solid var(--gray2);
+  display: flex;
+  align-items: center;
+  padding: 0 1rem;
+  max-width: 400px;
+  margin: 0 auto 2rem;
+  gap: 0.5rem;
+}
+
+.search-bar input {
+  flex: 1;
+  background: none;
+  border: none;
+  color: var(--white);
+  padding: 0.8rem 0;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  outline: none;
+}
+
+.search-bar input::placeholder { color: var(--gray); }
+
+.filter-tabs {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+
+.filter-tab {
+  padding: 0.5rem 1.5rem;
+  background: var(--dark3);
+  border: 1px solid var(--gray2);
+  color: var(--gray);
+  font-family: var(--font-accent);
+  font-size: 0.65rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.filter-tab:hover, .filter-tab.active {
+  background: var(--red);
+  border-color: var(--red);
+  color: white;
+}
+
+/* REFERRAL */
+.referral-box {
+  background: linear-gradient(135deg, rgba(224,0,27,0.1) 0%, rgba(224,0,27,0.05) 100%);
+  border: 1px solid rgba(224,0,27,0.3);
+  padding: 2rem;
+  text-align: center;
+  margin: 2rem 0;
+}
+
+.referral-code {
+  font-family: var(--font-accent);
+  font-size: 2rem;
+  color: var(--gold);
+  letter-spacing: 8px;
+  font-weight: 900;
+  margin: 1rem 0;
+}
+
+/* LOADING */
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--dark3);
+  border-top-color: var(--red);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* BACK TO TOP */
+.back-top {
+  position: fixed;
+  bottom: 2rem;
+  left: 2rem;
+  width: 45px;
+  height: 45px;
+  background: var(--red);
+  border: none;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s;
+  z-index: 500;
+}
+
+.back-top.visible { opacity: 1; }
+
+/* LIVE BADGE */
+.live-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(255,0,0,0.15);
+  border: 1px solid rgba(255,0,0,0.4);
+  color: #ff4444;
+  padding: 0.2rem 0.7rem;
+  font-family: var(--font-accent);
+  font-size: 0.55rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.live-dot {
+  width: 6px;
+  height: 6px;
+  background: #ff4444;
+  border-radius: 50%;
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .comp-detail-hero { grid-template-columns: 1fr; }
+  .admin-wrap { grid-template-columns: 1fr; }
+  .admin-sidebar { position: relative; height: auto; }
+  .form-row { grid-template-columns: 1fr; }
+  .hero-stats { gap: 1.5rem; }
+  .how-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 480px) {
+  .footer-grid { grid-template-columns: 1fr; }
+  .how-grid { grid-template-columns: 1fr; }
+}
+
+/* MOBILE NAV */
+.mobile-nav {
+  position: fixed;
+  inset: 0;
+  background: var(--black);
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  transform: translateX(100%);
+  transition: transform 0.4s;
+}
+
+.mobile-nav.open { transform: translateX(0); }
+
+.mobile-nav a {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  letter-spacing: 4px;
+  color: var(--white);
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.mobile-nav a:hover { color: var(--red); }
+
+.mobile-close {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  background: none;
+  border: none;
+  color: var(--white);
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+/* FEATURE BANNER */
+.feature-banner {
+  background: linear-gradient(135deg, var(--dark2) 0%, var(--dark) 100%);
+  border-top: 1px solid var(--dark3);
+  border-bottom: 1px solid var(--dark3);
+  padding: 3rem 2rem;
+}
+
+.features-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.feature-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.feature-icon {
+  font-size: 1.8rem;
+  flex-shrink: 0;
+}
+
+.feature-text-title {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--white);
+  margin-bottom: 0.2rem;
+}
+
+.feature-text-sub {
+  font-size: 0.8rem;
+  color: var(--gray);
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a class="nav-logo" onclick="navigate('home')"><span>A</span>LPHA</a>
+  <ul class="nav-links" id="navLinks">
+    <li><a onclick="navigate('competitions')">Competitions</a></li>
+    <li><a onclick="navigate('winners')">Winners</a></li>
+    <li><a onclick="navigate('how-it-works')">How It Works</a></li>
+    <li><a onclick="navigate('faq')">FAQ</a></li>
+    <li id="navAuthLinks">
+      <a onclick="openModal('loginModal')" class="nav-cta">Login / Sign Up</a>
+    </li>
+    <li id="navUserLinks" style="display:none;">
+      <div class="nav-user">
+        <div class="nav-balance" id="navBalance">₹0.00</div>
+        <a onclick="navigate('account')">My Account</a>
+        <a onclick="logout()" style="color: var(--gray) !important; font-size: 0.8rem !important;">Logout</a>
+      </div>
+    </li>
+    <li id="adminNavLink" style="display:none;">
+      <a onclick="navigate('admin')" style="color: var(--gold) !important;">⚙ Admin</a>
+    </li>
+  </ul>
+  <div class="hamburger" onclick="toggleMobileNav()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobileNav">
+  <button class="mobile-close" onclick="toggleMobileNav()">✕</button>
+  <a onclick="navigate('home'); toggleMobileNav()">Home</a>
+  <a onclick="navigate('competitions'); toggleMobileNav()">Competitions</a>
+  <a onclick="navigate('winners'); toggleMobileNav()">Winners</a>
+  <a onclick="navigate('how-it-works'); toggleMobileNav()">How It Works</a>
+  <a onclick="navigate('faq'); toggleMobileNav()">FAQ</a>
+  <a onclick="openModal('loginModal'); toggleMobileNav()">Login</a>
+</div>
+
+<!-- ===================== HOME PAGE ===================== -->
+<div class="page active" id="page-home">
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-content">
+      <div class="hero-badge">India's Premier Competition Platform</div>
+      <h1 class="hero-title">
+        WIN YOUR
+        <span class="accent">DREAM</span>
+      </h1>
+      <p class="hero-subtitle">Answer. Enter. Win. Transform Your Life.</p>
+      <div class="hero-prize">🏎️ Ferrari Roma Spider — ₹1,95,00,000</div>
+      <div class="hero-ticket-price">Tickets from just <strong>₹49</strong> each</div>
+      <div class="hero-actions">
+        <button class="btn-primary" onclick="navigate('competitions')">
+          ▶ Enter Now
+        </button>
+        <button class="btn-secondary" onclick="navigate('how-it-works')">
+          How It Works
+        </button>
+      </div>
+      <div class="hero-stats">
+        <div class="stat">
+          <span class="stat-number" id="stat-winners">2,847</span>
+          <span class="stat-label">Winners</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">₹47Cr+</span>
+          <span class="stat-label">Prizes Won</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">98%</span>
+          <span class="stat-label">5 Star Reviews</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">4.2M</span>
+          <span class="stat-label">Members</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TICKER -->
+  <div class="ticker-wrap">
+    <div class="ticker-content" id="tickerContent">
+      <span class="ticker-item">Rahul M. won a BMW M5 Competition</span>
+      <span class="ticker-item">Priya S. won ₹10 Lakh Cash</span>
+      <span class="ticker-item">Arjun K. won a Rolex Submariner</span>
+      <span class="ticker-item">Deepika P. won MacBook Pro M3 Max</span>
+      <span class="ticker-item">Vikram T. won a Royal Enfield Interceptor</span>
+      <span class="ticker-item">Ananya R. won a Dubai Holiday Package</span>
+      <span class="ticker-item">Suresh M. won ₹25 Lakh Dream Home</span>
+      <span class="ticker-item">Rahul M. won a BMW M5 Competition</span>
+      <span class="ticker-item">Priya S. won ₹10 Lakh Cash</span>
+      <span class="ticker-item">Arjun K. won a Rolex Submariner</span>
+      <span class="ticker-item">Deepika P. won MacBook Pro M3 Max</span>
+      <span class="ticker-item">Vikram T. won a Royal Enfield Interceptor</span>
+      <span class="ticker-item">Ananya R. won a Dubai Holiday Package</span>
+      <span class="ticker-item">Suresh M. won ₹25 Lakh Dream Home</span>
+    </div>
+  </div>
+
+  <!-- FEATURES -->
+  <div class="feature-banner">
+    <div class="features-row">
+      <div class="feature-item">
+        <div class="feature-icon">🔒</div>
+        <div>
+          <div class="feature-text-title">100% Secure & Legal</div>
+          <div class="feature-text-sub">Licensed under Indian Gaming Laws. RBI compliant payments.</div>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">📱</div>
+        <div>
+          <div class="feature-text-title">Mobile First</div>
+          <div class="feature-text-sub">Enter competitions anywhere, anytime on any device.</div>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">⚡</div>
+        <div>
+          <div class="feature-text-title">Instant Notifications</div>
+          <div class="feature-text-sub">Real-time updates when you win via SMS & Email.</div>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">🎯</div>
+        <div>
+          <div class="feature-text-title">Skill-Based Entry</div>
+          <div class="feature-text-sub">Answer a question for your chance to win big prizes.</div>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">🤝</div>
+        <div>
+          <div class="feature-text-title">Refer & Earn</div>
+          <div class="feature-text-sub">Get ₹100 credit for every friend you invite.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FEATURED COMPETITIONS -->
+  <section style="padding: 5rem 2rem; background: var(--dark);">
+    <div class="section-header">
+      <div class="section-badge">Live Now</div>
+      <h2 class="section-title">FEATURED <span>COMPETITIONS</span></h2>
+    </div>
+    <div class="competitions-grid" id="featuredComps"></div>
+    <div style="text-align: center; margin-top: 3rem;">
+      <button class="btn-primary" onclick="navigate('competitions')">View All Competitions →</button>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS PREVIEW -->
+  <section style="padding: 5rem 2rem; background: var(--black);">
+    <div class="section-header">
+      <div class="section-badge">Simple Process</div>
+      <h2 class="section-title">HOW TO <span>WIN</span></h2>
+    </div>
+    <div class="how-grid">
+      <div class="how-card">
+        <div class="how-num">01</div>
+        <span class="how-icon">🎯</span>
+        <div class="how-title">Choose a Prize</div>
+        <p class="how-desc">Browse hundreds of luxury cars, electronics, holidays, cash prizes and more.</p>
+      </div>
+      <div class="how-card">
+        <div class="how-num">02</div>
+        <span class="how-icon">🎫</span>
+        <div class="how-title">Buy Tickets</div>
+        <p class="how-desc">Select your ticket quantity. More tickets = more chances to win. From ₹49 each.</p>
+      </div>
+      <div class="how-card">
+        <div class="how-num">03</div>
+        <span class="how-icon">❓</span>
+        <div class="how-title">Answer Question</div>
+        <p class="how-desc">Answer a simple skill-based question to complete your entry. No purchase necessary.</p>
+      </div>
+      <div class="how-card">
+        <div class="how-num">04</div>
+        <span class="how-icon">🏆</span>
+        <div class="how-title">Win Your Dream</div>
+        <p class="how-desc">Live draw at ticket sellout. Winner verified and contacted within 24 hours.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- RECENT WINNERS -->
+  <section style="padding: 5rem 2rem; background: var(--dark);">
+    <div class="section-header">
+      <div class="section-badge">Real People. Real Wins.</div>
+      <h2 class="section-title">RECENT <span>WINNERS</span></h2>
+    </div>
+    <div class="winners-grid" id="homeWinners"></div>
+    <div style="text-align: center; margin-top: 2rem;">
+      <button class="btn-secondary" onclick="navigate('winners')">All Winners →</button>
+    </div>
+  </section>
+
+  <!-- TRUST SECTION -->
+  <section style="padding: 4rem 2rem; background: var(--black); text-align: center;">
+    <div class="section-header">
+      <div class="section-badge">Trusted Platform</div>
+      <h2 class="section-title">WHY CHOOSE <span>ALPHA</span></h2>
+    </div>
+    <div style="max-width: 700px; margin: 0 auto; color: var(--gray); font-size: 1rem; line-height: 1.8;">
+      <p style="margin-bottom: 1.5rem;">Alpha is India's most trusted competition platform, fully licensed and regulated under the Public Gambling Act and Indian IT Act. Every competition is independently verified and drawn live on our YouTube channel.</p>
+      <p>We've paid out over ₹47 Crore in prizes since 2022. Every winner is real, every draw is fair. Our platform uses SHA-256 encryption for all transactions and complies with RBI guidelines for payment processing.</p>
+    </div>
+    <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 2rem;">
+      <div class="footer-badge" style="font-size: 0.75rem; padding: 0.5rem 1rem;">🔒 SSL SECURED</div>
+      <div class="footer-badge" style="font-size: 0.75rem; padding: 0.5rem 1rem;">💳 RAZORPAY CERTIFIED</div>
+      <div class="footer-badge" style="font-size: 0.75rem; padding: 0.5rem 1rem;">🏛️ LEGALLY COMPLIANT</div>
+      <div class="footer-badge" style="font-size: 0.75rem; padding: 0.5rem 1rem;">⭐ ISO 27001</div>
+      <div class="footer-badge" style="font-size: 0.75rem; padding: 0.5rem 1rem;">🎬 LIVE DRAWS</div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo"><span>A</span>LPHA</div>
+        <p>India's premier competition platform. Win luxury cars, electronics, holidays, and life-changing cash prizes. Legal, secure, and exciting.</p>
+        <p style="margin-top: 1rem; font-size: 0.75rem; color: var(--gray2);">CIN: U74999MH2022PTC123456 | GST: 27AABCA1234A1Z5</p>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Competitions</div>
+        <ul>
+          <li><a onclick="navigate('competitions')">All Competitions</a></li>
+          <li><a onclick="navigate('competitions')">Cars & Bikes</a></li>
+          <li><a onclick="navigate('competitions')">Electronics</a></li>
+          <li><a onclick="navigate('competitions')">Cash Prizes</a></li>
+          <li><a onclick="navigate('competitions')">Holidays</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Help</div>
+        <ul>
+          <li><a onclick="navigate('how-it-works')">How It Works</a></li>
+          <li><a onclick="navigate('faq')">FAQ</a></li>
+          <li><a onclick="navigate('winners')">Past Winners</a></li>
+          <li><a href="mailto:support@alpha.in">Contact Us</a></li>
+          <li><a onclick="navigate('responsible-gaming')">Responsible Gaming</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Legal</div>
+        <ul>
+          <li><a onclick="navigate('privacy-policy')">Privacy Policy</a></li>
+          <li><a onclick="navigate('terms')">Terms & Conditions</a></li>
+          <li><a onclick="navigate('cookies')">Cookie Policy</a></li>
+          <li><a onclick="navigate('refund-policy')">Refund Policy</a></li>
+          <li><a onclick="navigate('legal')">Legal Notice</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2024 Alpha Competition Pvt. Ltd. | Mumbai, Maharashtra, India | All Rights Reserved</p>
+      <div class="footer-badges">
+        <span class="footer-badge">18+</span>
+        <span class="footer-badge">PLAY RESPONSIBLY</span>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<!-- ===================== COMPETITIONS PAGE ===================== -->
+<div class="page" id="page-competitions">
+  <section style="padding: 8rem 2rem 5rem;">
+    <div class="section-header">
+      <div class="section-badge">Active Now</div>
+      <h2 class="section-title">ALL <span>COMPETITIONS</span></h2>
+    </div>
+    <div class="search-bar">
+      <span>🔍</span>
+      <input type="text" placeholder="Search competitions..." oninput="filterComps(this.value)" />
+    </div>
+    <div class="filter-tabs">
+      <button class="filter-tab active" onclick="setFilter('all', this)">All</button>
+      <button class="filter-tab" onclick="setFilter('cars', this)">🚗 Cars & Bikes</button>
+      <button class="filter-tab" onclick="setFilter('electronics', this)">💻 Electronics</button>
+      <button class="filter-tab" onclick="setFilter('cash', this)">💰 Cash</button>
+      <button class="filter-tab" onclick="setFilter('holidays', this)">✈️ Holidays</button>
+      <button class="filter-tab" onclick="setFilter('watches', this)">⌚ Watches</button>
+      <button class="filter-tab" onclick="setFilter('ending', this)">🔥 Ending Soon</button>
+    </div>
+    <div class="competitions-grid" id="allComps"></div>
+  </section>
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-bottom" style="max-width: 1200px; margin: 0 auto;">
+      <p>© 2024 Alpha Competition Pvt. Ltd. All Rights Reserved</p>
+      <div class="footer-badges">
+        <span class="footer-badge">18+</span>
+        <span class="footer-badge">PLAY RESPONSIBLY</span>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<!-- ===================== COMPETITION DETAIL ===================== -->
+<div class="page" id="page-comp-detail">
+  <div id="compDetailContent"></div>
+</div>
+
+<!-- ===================== HOW IT WORKS PAGE ===================== -->
+<div class="page" id="page-how-it-works">
+  <div class="legal-page" style="max-width: 900px;">
+    <h1>HOW IT WORKS</h1>
+    <span class="update-date">Simple. Legal. Exciting.</span>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 3rem;">
+      <div class="how-card" style="position: relative;">
+        <div class="how-num">01</div>
+        <span class="how-icon">🎯</span>
+        <div class="how-title">Choose Your Prize</div>
+        <p class="how-desc">Browse our catalogue of incredible prizes — luxury cars, high-end electronics, exotic holidays, and life-changing cash prizes. Every competition has a guaranteed prize.</p>
+      </div>
+      <div class="how-card" style="position: relative;">
+        <div class="how-num">02</div>
+        <span class="how-icon">🎫</span>
+        <div class="how-title">Select Tickets</div>
+        <p class="how-desc">Choose how many tickets you want. Each ticket costs as little as ₹49. The more tickets you hold, the higher your odds of winning. Bundle deals available.</p>
+      </div>
+      <div class="how-card" style="position: relative;">
+        <div class="how-num">03</div>
+        <span class="how-icon">❓</span>
+        <div class="how-title">Answer the Question</div>
+        <p class="how-desc">To comply with Indian gaming law, entrants must answer a skill-based question correctly. No purchase is required — a free postal entry option is always available.</p>
+      </div>
+      <div class="how-card" style="position: relative;">
+        <div class="how-num">04</div>
+        <span class="how-icon">💳</span>
+        <div class="how-title">Secure Payment</div>
+        <p class="how-desc">Pay securely via UPI, Credit/Debit Card, Net Banking, or Wallets powered by Razorpay. All transactions are encrypted and RBI compliant.</p>
+      </div>
+      <div class="how-card" style="position: relative;">
+        <div class="how-num">05</div>
+        <span class="how-icon">🎬</span>
+        <div class="how-title">Live Draw</div>
+        <p class="how-desc">When all tickets sell out, we conduct a LIVE draw on our YouTube channel, streamed in real-time. A random winner is selected using our certified random number generator.</p>
+      </div>
+      <div class="how-card" style="position: relative;">
+        <div class="how-num">06</div>
+        <span class="how-icon">🏆</span>
+        <div class="how-title">Collect Your Prize</div>
+        <p class="how-desc">Winners are contacted within 24 hours. Prizes are delivered or arranged within 30 days. All taxes (TDS as per Income Tax Act) are handled transparently.</p>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <strong style="color: var(--red);">🆓 FREE ENTRY OPTION:</strong> Under the Prize Competition Act, no purchase is necessary to enter. Send your name, address, phone number, and the answer to the skill question on a postcard to: Alpha Competitions Pvt. Ltd., 12th Floor, One BKC, Bandra Kurla Complex, Mumbai - 400051.
+    </div>
+
+    <h2>ODDS OF WINNING</h2>
+    <p>Your odds depend on the number of tickets issued per competition and how many you purchase. If a competition has 10,000 total tickets and you buy 10, your odds are 10 in 10,000 (1 in 1,000). Odds are always displayed on each competition page.</p>
+
+    <h2>TAXES</h2>
+    <p>Prize winnings in India are subject to TDS (Tax Deducted at Source) at 30% under Section 194B of the Income Tax Act for prizes exceeding ₹10,000. TDS is deducted at source before prize delivery. Winners receive a TDS certificate (Form 16A) from Alpha.</p>
+
+    <h2>LEGALITY</h2>
+    <p>Alpha operates as a skill-based competition platform, not a lottery. Our model complies with the Public Gambling Act 1867, the Information Technology Act 2000, the Consumer Protection Act 2019, and all applicable state laws. We hold all required licenses and registrations.</p>
+  </div>
+  <footer>
+    <div class="footer-bottom" style="max-width: 1200px; margin: 0 auto;">
+      <p>© 2024 Alpha Competition Pvt. Ltd. All Rights Reserved</p>
+    </div>
+  </footer>
+</div>
+
+<!-- ===================== WINNERS PAGE ===================== -->
+<div class="page" id="page-winners">
+  <section style="padding: 8rem 2rem 5rem;">
+    <div class="section-header">
+      <div class="section-badge">Real People. Real Prizes.</div>
+      <h2 class="section-title">HALL OF <span>WINNERS</span></h2>
+    </div>
+    <div class="winners-grid" id="allWinners" style="max-width: 1200px; margin: 0 auto;"></div>
+  </section>
+  <footer>
+    <div class="footer-bottom" style="max-width: 1200px; margin: 0 auto;">
+      <p>© 2024 Alpha Competition Pvt. Ltd. All Rights Reserved</p>
+    </div>
+  </footer>
+</div>
+
+<!-- ===================== FAQ PAGE ===================== -->
+<div class="page" id="page-faq">
+  <div class="legal-page">
+    <h1>FAQ</h1>
+    <span class="update-date">Frequently Asked Questions</span>
+    <div id="faqList"></div>
+  </div>
+  <footer>
+    <div class="footer-bottom" style="max-width: 1200px; margin: 0 auto;">
+      <p>© 2024 Alpha Competition Pvt. Ltd. All Rights Reserved</p>
+    </div>
+  </footer>
+</div>
+
+<!-- ===================== CART PAGE ===================== -->
+<div class="page" id="page-cart">
+  <div class="cart-wrap" style="padding: 8rem 2rem 5rem;">
+    <div class="section-header">
+      <h2 class="section-title">YOUR <span>CART</span></h2>
+    </div>
+    <div id="cartContent"></div>
+  </div>
+  <footer>
+    <div class="footer-bottom" style="max-width: 1200px; margin: 0 auto;">
+      <p>© 2024 Alpha Competition Pvt. Ltd. All Rights Reserved</p>
+    </div>
+  </footer>
+</div>
+
+<!-- ===================== ACCOUNT PAGE ===================== -->
+<div class="page" id="page-account">
+  <div class="account-wrap" style="padding: 8rem 2rem 5rem;">
+    <div style="display: flex; align-items: center; gap: 1.5rem; margin-bottom: 3rem;">
+      <div style="width: 70px; height: 70px; background: var(--red); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: 2rem;" id="accountAvatar">A</div>
+      <div>
+        <div style="font-family: var(--font-display); font-size: 2rem; letter-spacing: 2px;" id="accountName">Alpha User</div>
+        <div style="color: var(--gray); font-size: 0.85rem;" id="accountEmail">user@example.com</div>
+        <div class="live-badge" style="margin-top: 0.3rem;">
+          <span class="live-dot"></span> Active Member
+        </div>
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
+      <div class="stat-card">
+        <div class="stat-card-label">Competitions Entered</div>
+        <div class="stat-card-value" id="acctEntries">0</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-label">Total Tickets</div>
+        <div class="stat-card-value" id="acctTickets">0</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-label">Prizes Won</div>
+        <div class="stat-card-value" id="acctWins">0</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-label">Wallet Balance</div>
+        <div class="stat-card-value" id="acctBalance">₹0</div>
+      </div>
+    </div>
+
+    <div class="account-tabs">
+      <div class="account-tab active" onclick="switchTab('entries', this)">My Entries</div>
+      <div class="account-tab" onclick="switchTab('profile', this)">Profile</div>
+      <div class="account-tab" onclick="switchTab('referral', this)">Referral</div>
+      <div class="account-tab" onclick="switchTab('transactions', this)">Transactions</div>
+    </div>
+
+    <div class="account-tab-content active" id="tab-entries">
+      <div id="myEntries">
+        <div style="text-align: center; padding: 3rem; color: var(--gray);">
+          <div style="font-size: 3rem; margin-bottom: 1rem;">🎫</div>
+          <p>No entries yet. <a class="form-link" onclick="navigate('competitions')">Enter a competition →</a></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="account-tab-content" id="tab-profile">
+      <div class="admin-form-card">
+        <div class="admin-form-title">Personal Details</div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">First Name</label>
+            <input class="form-input" id="profileFirstName" placeholder="Your first name" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Last Name</label>
+            <input class="form-input" id="profileLastName" placeholder="Your last name" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Email Address</label>
+            <input class="form-input" id="profileEmail" type="email" placeholder="your@email.com" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Mobile Number</label>
+            <input class="form-input" id="profilePhone" placeholder="+91 98765 43210" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Date of Birth (Must be 18+)</label>
+          <input class="form-input" type="date" id="profileDob" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Address</label>
+          <input class="form-input" id="profileAddress" placeholder="Street address" />
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">City</label>
+            <input class="form-input" id="profileCity" placeholder="Mumbai" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">PIN Code</label>
+            <input class="form-input" id="profilePin" placeholder="400001" maxlength="6" />
+          </div>
+        </div>
+        <button class="btn-primary" onclick="saveProfile()">Save Changes</button>
+      </div>
+      <div class="admin-form-card">
+        <div class="admin-form-title">Change Password</div>
+        <div class="form-group">
+          <label class="form-label">Current Password</label>
+          <input class="form-input" type="password" placeholder="••••••••" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">New Password</label>
+          <input class="form-input" type="password" id="newPass" placeholder="••••••••" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Confirm New Password</label>
+          <input class="form-input" type="password" id="confirmPass" placeholder="••••••••" />
+        </div>
+        <button class="btn-primary" onclick="showToast('Password updated successfully!', 'success')">Update Password</button>
+      </div>
+    </div>
+
+    <div class="account-tab-content" id="tab-referral">
+      <div class="referral-box">
+        <div style="font-family: var(--font-display); font-size: 2rem; letter-spacing: 3px; color: var(--white); margin-bottom: 0.5rem;">REFER & EARN</div>
+        <p style="color: var(--gray); margin-bottom: 1rem;">Share your unique code. When a friend signs up and makes their first purchase, you both get ₹100 credit!</p>
+        <div class="referral-code" id="referralCode">ALPHA-XXXX</div>
+        <button class="btn-primary" onclick="copyReferral()">📋 Copy Code</button>
+        <p style="color: var(--gray); font-size: 0.8rem; margin-top: 1rem;">Share link: <span id="referralLink" style="color: var(--red);">https://alpha.in/ref/ALPHA-XXXX</span></p>
+      </div>
+      <div class="admin-form-card">
+        <div class="admin-form-title">Your Referrals</div>
+        <p style="color: var(--gray);">You have referred <strong style="color: var(--white);">0</strong> friends. Start sharing to earn!</p>
+      </div>
+    </div>
+
+    <div class="account-tab-content" id="tab-transactions">
+      <div class="admin-form-card">
+        <div class="admin-form-title">Transaction History</div>
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Description</th>
+              <th>Amount</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="transactionTable">
+            <tr><td colspan="4" style="text-align: center; color: var(--gray);">No transactions yet</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <div class="footer-bottom" style="max-width: 1200px; margin: 0 auto;">
+      <p>© 2024 Alpha Competition Pvt. Ltd. All Rights Reserved</p>
+    </div>
+  </footer>
+</div>
+
+<!-- ===================== SUCCESS PAGE ===================== -->
+<div class="page" id="page-success">
+  <div class="success-page">
+    <div class="success-content">
+      <span class="success-icon">🎉</span>
+      <div class="success-title">ENTRY CONFIRMED!</div>
+      <p class="success-sub">You're in the draw! Good luck! We'll notify you via email and SMS if you win.</p>
+      <div class="ticket-ref" id="ticketRefDisplay">ALPHA-000000</div>
+      <p style="color: var(--gray); font-size: 0.85rem; margin-bottom: 2rem;">Keep this reference number safe. You can view your entries in My Account.</p>
+      <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+        <button class="btn-primary" onclick="navigate('competitions')">Enter More →</button>
+        <button class="btn-secondary" onclick="navigate('account')">My Account</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== ADMIN PAGE ===================== -->
+<div class="page" id="page-admin">
+  <div class="admin-wrap">
+    <div class="admin-sidebar">
+      <div class="admin-sidebar-title">Admin Panel</div>
+      <div class="admin-nav-item active" onclick="showAdminPanel('dashboard', this)">
+        <span class="icon">📊</span> Dashboard
+      </div>
+      <div class="admin-nav-item" onclick="showAdminPanel('competitions', this)">
+        <span class="icon">🏆</span> Competitions
+      </div>
+      <div class="admin-nav-item" onclick="showAdminPanel('orders', this)">
+        <span class="icon">🛒</span> Orders
+      </div>
+      <div class="admin-nav-item" onclick="showAdminPanel('users', this)">
+        <span class="icon">👥</span> Users
+      </div>
+      <div class="admin-nav-item" onclick="showAdminPanel('winners', this)">
+        <span class="icon">🎬</span> Draw Winners
+      </div>
+      <div class="admin-nav-item" onclick="showAdminPanel('pricing', this)">
+        <span class="icon">💰</span> Pricing
+      </div>
+      <div class="admin-nav-item" onclick="showAdminPanel('payments', this)">
+        <span class="icon">💳</span> Payments
+      </div>
+      <div class="admin-nav-item" onclick="showAdminPanel('settings', this)">
+        <span class="icon">⚙️</span> Settings
+      </div>
+      <div class="admin-nav-item" style="margin-top: 2rem; border-top: 1px solid var(--dark3); padding-top: 1rem;" onclick="navigate('home')">
+        <span class="icon">← </span> Back to Site
+      </div>
+    </div>
+    <div class="admin-content">
+      <!-- DASHBOARD -->
+      <div class="admin-panel active" id="admin-dashboard">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+          <h2 style="font-family: var(--font-display); font-size: 2rem; letter-spacing: 3px;">DASHBOARD</h2>
+          <div class="live-badge"><span class="live-dot"></span> Live Data</div>
+        </div>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-card-label">Total Revenue</div>
+            <div class="stat-card-value" id="adminRevenue">₹0</div>
+            <div class="stat-card-change">↑ 12% this month</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-label">Active Competitions</div>
+            <div class="stat-card-value" id="adminActiveComps">0</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-label">Total Users</div>
+            <div class="stat-card-value" id="adminUsers">0</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-label">Tickets Sold Today</div>
+            <div class="stat-card-value" id="adminTicketsToday">0</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-label">Pending Orders</div>
+            <div class="stat-card-value" id="adminPending">0</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-label">Winners Drawn</div>
+            <div class="stat-card-value" id="adminWinners">0</div>
+          </div>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+          <div class="admin-form-card" style="margin-bottom: 0;">
+            <div class="admin-form-title">Recent Orders</div>
+            <table class="admin-table">
+              <thead><tr><th>User</th><th>Competition</th><th>Amount</th><th>Status</th></tr></thead>
+              <tbody id="recentOrdersTable">
+                <tr><td colspan="4" style="color: var(--gray); text-align: center;">No orders yet</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="admin-form-card" style="margin-bottom: 0;">
+            <div class="admin-form-title">Competition Stats</div>
+            <table class="admin-table">
+              <thead><tr><th>Competition</th><th>Tickets Sold</th><th>%</th></tr></thead>
+              <tbody id="compStatsTable"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- COMPETITIONS MANAGEMENT -->
+      <div class="admin-panel" id="admin-competitions">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+          <h2 style="font-family: var(--font-display); font-size: 2rem; letter-spacing: 3px;">COMPETITIONS</h2>
+          <button class="btn-primary" onclick="openModal('addCompModal')">+ Add Competition</button>
+        </div>
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Prize</th>
+              <th>Value</th>
+              <th>Ticket Price</th>
+              <th>Sold/Total</th>
+              <th>Ends</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="adminCompTable"></tbody>
+        </table>
+      </div>
+
+      <!-- ORDERS -->
+      <div class="admin-panel" id="admin-orders">
+        <h2 style="font-family: var(--font-display); font-size: 2rem; letter-spacing: 3px; margin-bottom: 2rem;">ORDERS</h2>
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Order ID</th>
+              <th>User</th>
+              <th>Competition</th>
+              <th>Tickets</th>
+              <th>Amount</th>
+              <th>Date</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="adminOrdersTable">
+            <tr><td colspan="7" style="color: var(--gray); text-align: center;">No orders yet</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- USERS -->
+      <div class="admin-panel" id="admin-users">
+        <h2 style="font-family: var(--font-display); font-size: 2rem; letter-spacing: 3px; margin-bottom: 2rem;">USERS</h2>
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Joined</th>
+              <th>Orders</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="adminUsersTable"></tbody>
+        </table>
+      </div>
+
+      <!-- DRAW WINNERS -->
+      <div class="admin-panel" id="admin-winners">
+        <h2 style="font-family: var(--font-display); font-size: 2rem; letter-spacing: 3px; margin-bottom: 2rem;">DRAW WINNERS</h2>
+        <div class="admin-form-card">
+          <div class="admin-form-title">Conduct Live Draw</div>
+          <div class="form-group">
+            <label class="form-label">Select Competition</label>
+            <select class="form-input" id="drawCompSelect">
+              <option value="">-- Select Competition --</option>
+            </select>
+          </div>
+          <div id="drawCompInfo" style="display:none;" class="highlight-box" style="margin-bottom: 1rem;">
+            <div id="drawCompDetails"></div>
+          </div>
+          <button class="btn-primary" onclick="conductDraw()">🎬 Conduct Live Draw</button>
+        </div>
+        <div class="admin-form-card">
+          <div class="admin-form-title">Past Draws</div>
+          <table class="admin-table">
+            <thead><tr><th>Competition</th><th>Winner</th><th>Ticket #</th><th>Date</th></tr></thead>
+            <tbody id="pastDrawsTable">
+              <tr><td colspan="4" style="color: var(--gray); text-align: center;">No draws conducted yet</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- PRICING MANAGEMENT -->
+      <div class="admin-panel" id="admin-pricing">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2rem;">
+          <h2 style="font-family:var(--font-display); font-size:2rem; letter-spacing:3px;">PRICING MANAGER</h2>
+          <button class="btn-primary" onclick="openModal('addCompModal')">+ Add Competition</button>
+        </div>
+        <div class="highlight-box" style="margin-bottom:2rem;">
+          <strong>💡 Quick Edit:</strong> Change ticket prices, total tickets, and prize values directly below. Click <strong>Save</strong> to apply instantly.
+        </div>
+        <div id="pricingCards"></div>
+      </div>
+
+      <!-- PAYMENTS -->
+      <div class="admin-panel" id="admin-payments">
+        <h2 style="font-family: var(--font-display); font-size: 2rem; letter-spacing: 3px; margin-bottom: 2rem;">PAYMENTS</h2>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-card-label">Total Collected</div>
+            <div class="stat-card-value" id="payTotal">₹0</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-label">This Month</div>
+            <div class="stat-card-value" id="payMonth">₹0</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-label">Refunds Issued</div>
+            <div class="stat-card-value" id="payRefunds">₹0</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-label">Gateway Fee</div>
+            <div class="stat-card-value" id="payFee">₹0</div>
+          </div>
+        </div>
+        <div class="admin-form-card">
+          <div class="admin-form-title">Payment Gateway Settings</div>
+          <div class="highlight-box">
+            <strong>Razorpay Integration</strong><br>
+            <small>Configure your Razorpay API keys below to enable live payment processing.</small>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Razorpay Key ID</label>
+            <input class="form-input" id="rzpKeyId" placeholder="rzp_live_XXXXXXXXXXXXXXXX" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Razorpay Key Secret</label>
+            <input class="form-input" type="password" id="rzpKeySecret" placeholder="••••••••••••••••••••••••" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">UPI VPA (for direct UPI)</label>
+            <input class="form-input" id="upiVpa" placeholder="alpha@razorpay" />
+          </div>
+          <button class="btn-primary" onclick="savePaymentSettings()">Save Settings</button>
+        </div>
+      </div>
+
+      <!-- SETTINGS -->
+      <div class="admin-panel" id="admin-settings">
+        <h2 style="font-family: var(--font-display); font-size: 2rem; letter-spacing: 3px; margin-bottom: 2rem;">SETTINGS</h2>
+        <div class="admin-form-card">
+          <div class="admin-form-title">Site Settings</div>
+          <div class="form-group">
+            <label class="form-label">Site Name</label>
+            <input class="form-input" value="ALPHA" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Support Email</label>
+            <input class="form-input" value="support@alpha.in" type="email" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Support Phone</label>
+            <input class="form-input" value="+91 1800-123-4567" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Business Address</label>
+            <input class="form-input" value="12th Floor, One BKC, Bandra Kurla Complex, Mumbai - 400051" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">GST Number</label>
+            <input class="form-input" value="27AABCA1234A1Z5" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Maintenance Mode</label>
+            <select class="form-input">
+              <option>Off - Site is Live</option>
+              <option>On - Maintenance</option>
+            </select>
+          </div>
+          <button class="btn-primary" onclick="showToast('Settings saved!', 'success')">Save Settings</button>
+        </div>
+        <div class="admin-form-card">
+          <div class="admin-form-title">Notification Settings</div>
+          <div class="form-group">
+            <label class="form-label">SMS Provider API Key</label>
+            <input class="form-input" placeholder="TextLocal / MSG91 API Key" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email SMTP Host</label>
+            <input class="form-input" placeholder="smtp.alpha.in" />
+          </div>
+          <button class="btn-primary" onclick="showToast('Notification settings saved!', 'success')">Save</button>
+        </div>
+        <div class="admin-form-card">
+          <div class="admin-form-title">Admin Credentials</div>
+          <div class="highlight-box">
+            <strong>Current Admin:</strong> admin@alpha.in<br>
+            <strong>Password:</strong> Alpha@Admin2024<br>
+            <small>Change this immediately after first login.</small>
+          </div>
+          <div class="form-group">
+            <label class="form-label">New Admin Email</label>
+            <input class="form-input" type="email" placeholder="admin@alpha.in" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">New Admin Password</label>
+            <input class="form-input" type="password" placeholder="New secure password" />
+          </div>
+          <button class="btn-primary" onclick="showToast('Admin credentials updated!', 'success')">Update Credentials</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== LEGAL PAGES ===================== -->
+<div class="page" id="page-privacy-policy">
+  <div class="legal-page">
+    <h1>PRIVACY POLICY</h1>
+    <span class="update-date">Last Updated: January 1, 2024 | Effective: January 1, 2024</span>
+
+    <div class="highlight-box">
+      This Privacy Policy describes how Alpha Competition Pvt. Ltd. ("Alpha", "we", "us", "our") collects, uses, and shares information about you when you use our services. This policy complies with the Information Technology (Reasonable Security Practices and Procedures and Sensitive Personal Data or Information) Rules, 2011, and the Personal Data Protection framework applicable in India.
+    </div>
+
+    <h2>1. INFORMATION WE COLLECT</h2>
+
+    <h3>1.1 Information You Provide</h3>
+    <ul>
+      <li><strong>Account Information:</strong> Name, email address, mobile number, date of birth, password</li>
+      <li><strong>Identity Verification (KYC):</strong> PAN card, Aadhaar number (masked), government-issued photo ID for prize winners</li>
+      <li><strong>Payment Information:</strong> UPI ID, bank account details (processed via Razorpay; we do not store card numbers)</li>
+      <li><strong>Contact Details:</strong> Delivery address, city, state, PIN code</li>
+      <li><strong>Communications:</strong> Support queries, feedback, complaints</li>
+    </ul>
+
+    <h3>1.2 Information We Collect Automatically</h3>
+    <ul>
+      <li>IP address, browser type, device identifier</li>
+      <li>Browsing activity on our platform (pages visited, competition entries)</li>
+      <li>Transaction logs, entry records, ticket purchase history</li>
+      <li>Cookies and similar tracking technologies</li>
+    </ul>
+
+    <h3>1.3 Information from Third Parties</h3>
+    <ul>
+      <li>Payment verification data from Razorpay</li>
+      <li>Social login data (if you use Google/Facebook login)</li>
+      <li>Fraud prevention data from third-party services</li>
+    </ul>
+
+    <h2>2. HOW WE USE YOUR INFORMATION</h2>
+    <ul>
+      <li>To create and manage your account</li>
+      <li>To process competition entries and payments</li>
+      <li>To conduct draws and notify winners</li>
+      <li>To verify your identity (KYC) for prize delivery</li>
+      <li>To comply with TDS obligations under the Income Tax Act</li>
+      <li>To send marketing communications (with your consent)</li>
+      <li>To improve our services and user experience</li>
+      <li>To prevent fraud and ensure platform security</li>
+      <li>To comply with applicable laws and regulations</li>
+    </ul>
+
+    <h2>3. LEGAL BASIS FOR PROCESSING</h2>
+    <p>We process your data on the following legal bases:</p>
+    <ul>
+      <li><strong>Contractual Necessity:</strong> To provide competition services you've signed up for</li>
+      <li><strong>Consent:</strong> For marketing communications and optional data sharing</li>
+      <li><strong>Legal Obligation:</strong> KYC, TDS compliance, PMLA compliance</li>
+      <li><strong>Legitimate Interests:</strong> Fraud prevention, service improvement</li>
+    </ul>
+
+    <h2>4. DATA SHARING</h2>
+    <p>We share your data with:</p>
+    <ul>
+      <li><strong>Razorpay Financial Solutions Pvt. Ltd.</strong> — Payment processing</li>
+      <li><strong>MSG91 / TextLocal</strong> — SMS notifications</li>
+      <li><strong>Amazon Web Services (AWS)</strong> — Cloud hosting</li>
+      <li><strong>Income Tax Department</strong> — TDS filings for prizes over ₹10,000</li>
+      <li><strong>Law Enforcement</strong> — When legally required</li>
+    </ul>
+    <p>We do NOT sell your personal data to third parties for marketing purposes.</p>
+
+    <h2>5. DATA RETENTION</h2>
+    <ul>
+      <li>Account data: Retained for 5 years after account closure (as required by Indian law)</li>
+      <li>Transaction records: 7 years (GST and accounting requirements)</li>
+      <li>KYC documents: 5 years post-transaction (PMLA requirements)</li>
+      <li>Marketing data: Until consent is withdrawn</li>
+    </ul>
+
+    <h2>6. YOUR RIGHTS</h2>
+    <p>Under applicable Indian law and our policy, you have the right to:</p>
+    <ul>
+      <li>Access your personal data</li>
+      <li>Correct inaccurate data</li>
+      <li>Request deletion of your data (subject to legal obligations)</li>
+      <li>Withdraw consent for marketing</li>
+      <li>Opt out of profiling</li>
+      <li>Raise a grievance with our Data Protection Officer</li>
+    </ul>
+
+    <h2>7. DATA SECURITY</h2>
+    <p>We implement industry-standard security measures including AES-256 encryption, TLS 1.3 for data transmission, secure server infrastructure with ISO 27001 certification, regular security audits, and restricted employee access on a need-to-know basis.</p>
+
+    <h2>8. COOKIES</h2>
+    <p>We use essential cookies for platform functionality, analytical cookies (Google Analytics) to understand usage, and marketing cookies (with consent). See our Cookie Policy for details.</p>
+
+    <h2>9. GRIEVANCE OFFICER</h2>
+    <div class="highlight-box">
+      <strong>Grievance Officer (as required under IT Act):</strong><br>
+      Name: Mr. Vikash Sharma<br>
+      Email: grievance@alpha.in<br>
+      Phone: +91 22 4890 1234<br>
+      Address: 12th Floor, One BKC, Bandra Kurla Complex, Mumbai - 400051<br>
+      Response Time: Within 30 days of receipt
+    </div>
+
+    <h2>10. CONTACT US</h2>
+    <p>For privacy queries: privacy@alpha.in | +91 1800-123-4567 (Toll Free)</p>
+  </div>
+  <footer><div class="footer-bottom" style="max-width: 1200px; margin: 0 auto;"><p>© 2024 Alpha Competition Pvt. Ltd.</p></div></footer>
+</div>
+
+<div class="page" id="page-terms">
+  <div class="legal-page">
+    <h1>TERMS & CONDITIONS</h1>
+    <span class="update-date">Last Updated: January 1, 2024</span>
+
+    <div class="highlight-box">
+      Please read these Terms and Conditions carefully before using Alpha's competition platform. By registering or entering any competition, you agree to be bound by these terms. If you do not agree, please do not use our services.
+    </div>
+
+    <h2>1. THE COMPANY</h2>
+    <p>Alpha Competition Pvt. Ltd. (CIN: U74999MH2022PTC123456) is a company incorporated under the Companies Act, 2013, with its registered office at 12th Floor, One BKC, Bandra Kurla Complex, Mumbai - 400051, Maharashtra, India.</p>
+
+    <h2>2. ELIGIBILITY</h2>
+    <ul>
+      <li>You must be at least 18 years of age</li>
+      <li>You must be a resident of India (competitions open to Indian residents only, excluding restricted states)</li>
+      <li>You must not be an employee, director, or immediate family member of Alpha</li>
+      <li>You must have a valid bank account for prize receipt</li>
+      <li>Residents of certain states may have restrictions — check local laws</li>
+    </ul>
+
+    <h2>3. HOW COMPETITIONS WORK</h2>
+    <p>3.1 Each competition has a set number of total tickets. A winner is drawn randomly when all tickets are sold or the end date is reached.</p>
+    <p>3.2 Entrants must answer a skill-based question correctly. Incorrect answers will not qualify for the draw.</p>
+    <p>3.3 A free postal entry is always available as an alternative to purchasing tickets.</p>
+    <p>3.4 The draw is conducted via a certified Random Number Generator (RNG) and streamed live on YouTube.</p>
+
+    <h2>4. TICKETS AND PAYMENTS</h2>
+    <p>4.1 Ticket prices are displayed in Indian Rupees (INR) inclusive of applicable taxes.</p>
+    <p>4.2 All payments are processed via Razorpay. Alpha does not store payment card details.</p>
+    <p>4.3 GST at 28% (as applicable under lottery/prize competition rules) may apply.</p>
+    <p>4.4 Tickets are non-transferable and non-refundable once a draw is complete.</p>
+
+    <h2>5. PRIZES</h2>
+    <p>5.1 Prize values are approximate and may vary based on market conditions.</p>
+    <p>5.2 Winners must complete KYC verification within 14 days of notification.</p>
+    <p>5.3 Prizes are subject to TDS at 30% under Section 194B of the Income Tax Act for prizes exceeding ₹10,000. Alpha will deduct TDS and provide Form 16A.</p>
+    <p>5.4 Unclaimed prizes after 90 days will be forfeited.</p>
+    <p>5.5 Vehicle prizes require the winner to hold a valid Indian driving licence.</p>
+
+    <h2>6. REFUND POLICY</h2>
+    <p>6.1 If a competition is cancelled before the draw, full refunds will be issued within 7 business days.</p>
+    <p>6.2 If a competition does not reach minimum ticket sales, a draw is still conducted among entries received, or full refunds are issued at Alpha's discretion.</p>
+    <p>6.3 No refunds are available post-draw under any circumstance.</p>
+
+    <h2>7. PROHIBITED CONDUCT</h2>
+    <ul>
+      <li>Creating multiple accounts to enter competitions</li>
+      <li>Using automated bots or scripts</li>
+      <li>Fraudulent payment methods</li>
+      <li>Attempting to manipulate the draw</li>
+      <li>Harassment of Alpha staff</li>
+    </ul>
+
+    <h2>8. LIMITATION OF LIABILITY</h2>
+    <p>To the maximum extent permitted by Indian law, Alpha's total liability shall not exceed the ticket price paid by the user for the relevant competition entry.</p>
+
+    <h2>9. GOVERNING LAW</h2>
+    <p>These terms are governed by the laws of India. Any disputes shall be subject to the exclusive jurisdiction of courts in Mumbai, Maharashtra.</p>
+
+    <h2>10. DISPUTE RESOLUTION</h2>
+    <p>Any disputes shall first be attempted through mediation. Failing resolution within 60 days, disputes shall be referred to arbitration in Mumbai under the Arbitration and Conciliation Act, 1996.</p>
+
+    <h2>11. CONTACT</h2>
+    <p>legal@alpha.in | +91 22 4890 1234</p>
+  </div>
+  <footer><div class="footer-bottom" style="max-width: 1200px; margin: 0 auto;"><p>© 2024 Alpha Competition Pvt. Ltd.</p></div></footer>
+</div>
+
+<div class="page" id="page-refund-policy">
+  <div class="legal-page">
+    <h1>REFUND POLICY</h1>
+    <span class="update-date">Last Updated: January 1, 2024</span>
+    <h2>1. COMPETITION CANCELLATIONS</h2>
+    <p>If Alpha cancels a competition for any reason before the draw, all ticket purchasers will receive a full refund to the original payment method within 7 business days, or Alpha Credits at the user's choice.</p>
+    <h2>2. POST-DRAW REFUNDS</h2>
+    <p>No refunds are available once a draw has been conducted. By entering, you acknowledge that competition entries are final and you may not win.</p>
+    <h2>3. DUPLICATE PAYMENTS</h2>
+    <p>If a duplicate payment is made due to a technical error, the duplicate amount will be refunded within 5-7 business days.</p>
+    <h2>4. FAILED TRANSACTIONS</h2>
+    <p>If a payment fails but your bank is debited, the amount is typically reversed by your bank within 5-7 business days. Contact support@alpha.in if not resolved.</p>
+    <h2>5. REFUND PROCESS</h2>
+    <p>Refunds are processed to the original payment method. UPI/Net Banking refunds: 3-5 business days. Card refunds: 5-10 business days depending on your bank.</p>
+    <h2>6. ALPHA CREDITS</h2>
+    <p>Refunds may alternatively be issued as Alpha Credits (wallet balance) which can be used for future competition entries. Credits cannot be withdrawn as cash.</p>
+    <h2>CONTACT</h2>
+    <p>refunds@alpha.in | +91 1800-123-4567</p>
+  </div>
+  <footer><div class="footer-bottom" style="max-width: 1200px; margin: 0 auto;"><p>© 2024 Alpha Competition Pvt. Ltd.</p></div></footer>
+</div>
+
+<div class="page" id="page-cookies">
+  <div class="legal-page">
+    <h1>COOKIE POLICY</h1>
+    <span class="update-date">Last Updated: January 1, 2024</span>
+    <h2>1. WHAT ARE COOKIES</h2>
+    <p>Cookies are small text files stored on your device when you visit our website. They help us provide a better experience by remembering your preferences.</p>
+    <h2>2. TYPES OF COOKIES WE USE</h2>
+    <h3>Essential Cookies</h3>
+    <p>Required for the website to function. Include session management, login state, cart contents. Cannot be disabled.</p>
+    <h3>Analytics Cookies</h3>
+    <p>Google Analytics cookies (ga, _gid) to understand how users interact with our site. Data is anonymised. You may opt out via browser settings.</p>
+    <h3>Marketing Cookies</h3>
+    <p>Used with your consent to show relevant advertisements on third-party sites. Set by Meta Pixel, Google Ads.</p>
+    <h3>Preference Cookies</h3>
+    <p>Remember your language, currency, and display preferences.</p>
+    <h2>3. MANAGING COOKIES</h2>
+    <p>You can control cookies through your browser settings. Disabling certain cookies may impact website functionality. Most browsers allow you to view, delete, and control cookies.</p>
+    <h2>4. THIRD-PARTY COOKIES</h2>
+    <p>Third-party services on our site (Razorpay, YouTube embeds, Google) may set their own cookies subject to their respective privacy policies.</p>
+  </div>
+  <footer><div class="footer-bottom" style="max-width: 1200px; margin: 0 auto;"><p>© 2024 Alpha Competition Pvt. Ltd.</p></div></footer>
+</div>
+
+<div class="page" id="page-legal">
+  <div class="legal-page">
+    <h1>LEGAL NOTICE</h1>
+    <span class="update-date">Last Updated: January 1, 2024</span>
+
+    <div class="highlight-box">
+      <strong>IMPORTANT LEGAL NOTICE — READ CAREFULLY</strong><br>
+      Alpha competitions are skill-based prize competitions, NOT lotteries. Participation requires answering a skill question correctly. A free postal entry alternative is always available.
+    </div>
+
+    <h2>COMPANY INFORMATION</h2>
+    <ul>
+      <li><strong>Company Name:</strong> Alpha Competition Pvt. Ltd.</li>
+      <li><strong>CIN:</strong> U74999MH2022PTC123456</li>
+      <li><strong>Registered Office:</strong> 12th Floor, One BKC, Bandra Kurla Complex, Mumbai - 400051</li>
+      <li><strong>GST Registration:</strong> 27AABCA1234A1Z5</li>
+      <li><strong>PAN:</strong> AABCA1234A</li>
+    </ul>
+
+    <h2>REGULATORY COMPLIANCE</h2>
+    <ul>
+      <li>The Public Gambling Act, 1867 (Central Act)</li>
+      <li>The Information Technology Act, 2000</li>
+      <li>The Consumer Protection Act, 2019</li>
+      <li>The Prize Competition Act, 1955</li>
+      <li>The Prevention of Money Laundering Act, 2002</li>
+      <li>Income Tax Act, 1961 (TDS compliance)</li>
+      <li>RBI Guidelines on Digital Payments</li>
+    </ul>
+
+    <h2>AGE RESTRICTION</h2>
+    <p>Alpha competitions are strictly for persons aged 18 years and above. We implement age verification during registration and KYC. Any prize won by a person found to be under 18 will be forfeited.</p>
+
+    <h2>RESTRICTED STATES</h2>
+    <p>Competitions may not be available in all Indian states due to local gaming laws. Residents of Telangana, Andhra Pradesh, and other states with gaming restrictions should check applicable local laws before participating.</p>
+
+    <h2>RESPONSIBLE GAMING</h2>
+    <p>Alpha promotes responsible competition. Set spending limits in your account settings. For assistance with problem gambling, contact the iGaming Association of India helpline: 1800-XXX-XXXX.</p>
+
+    <h2>INTELLECTUAL PROPERTY</h2>
+    <p>All content on this platform including logos, brand marks, competition descriptions, and images are the intellectual property of Alpha Competition Pvt. Ltd. or used under license. Unauthorised reproduction is prohibited.</p>
+
+    <h2>DISCLAIMER</h2>
+    <p>The prize values advertised are market estimates at the time of competition creation and may fluctuate. Alpha reserves the right to substitute a prize of equal or greater value if necessary. Past wins do not guarantee future results.</p>
+  </div>
+  <footer><div class="footer-bottom" style="max-width: 1200px; margin: 0 auto;"><p>© 2024 Alpha Competition Pvt. Ltd.</p></div></footer>
+</div>
+
+<div class="page" id="page-responsible-gaming">
+  <div class="legal-page">
+    <h1>RESPONSIBLE GAMING</h1>
+    <span class="update-date">Our Commitment to Safe Play</span>
+    <div class="highlight-box">
+      Alpha is committed to promoting responsible gaming. Competitions should be fun — not a financial burden. We provide tools to help you stay in control.
+    </div>
+    <h2>SPENDING LIMITS</h2>
+    <p>Set daily, weekly, or monthly spending limits in your account settings. Once a limit is reached, you will not be able to make further purchases until the period resets.</p>
+    <h2>SELF-EXCLUSION</h2>
+    <p>You can request self-exclusion from our platform for 30 days, 6 months, 1 year, or permanently. Contact support@alpha.in or use the account settings to activate self-exclusion.</p>
+    <h2>COOLING OFF PERIOD</h2>
+    <p>You can apply a cooling-off period of 24 hours, 7 days, or 30 days during which you cannot enter competitions.</p>
+    <h2>SIGNS OF PROBLEM GAMBLING</h2>
+    <ul>
+      <li>Spending more than you can afford</li>
+      <li>Neglecting responsibilities to participate</li>
+      <li>Chasing losses</li>
+      <li>Hiding your activity from family</li>
+    </ul>
+    <h2>GETTING HELP</h2>
+    <p>If you or someone you know has a gambling problem, please reach out: iGaming Helpline India: 1800-XXX-XXXX | NIMHANS: 080-46110007</p>
+  </div>
+  <footer><div class="footer-bottom" style="max-width: 1200px; margin: 0 auto;"><p>© 2024 Alpha Competition Pvt. Ltd.</p></div></footer>
+</div>
+
+<!-- ===================== MODALS ===================== -->
+
+<!-- LOGIN MODAL -->
+<div class="modal-overlay" id="loginModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="loginModalTitle">SIGN IN</div>
+      <button class="modal-close" onclick="closeModal('loginModal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div id="loginView">
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <input class="form-input" type="email" id="loginEmail" placeholder="your@email.com" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <input class="form-input" type="password" id="loginPassword" placeholder="••••••••" />
+        </div>
+        <button class="btn-primary" style="width: 100%; justify-content: center; clip-path: none; margin-bottom: 1rem;" onclick="doLogin()">Sign In</button>
+        <div class="form-divider">OR</div>
+        <p style="text-align: center; font-size: 0.9rem; color: var(--gray); margin-top: 1rem;">
+          Don't have an account? <a class="form-link" onclick="showRegisterView()">Create Account</a>
+        </p>
+        <p style="text-align: center; font-size: 0.8rem; color: var(--gray); margin-top: 0.5rem;">
+          <a class="form-link" onclick="showToast('Password reset email sent!', 'success')">Forgot Password?</a>
+        </p>
+        <div class="highlight-box" style="margin-top: 1.5rem; font-size: 0.8rem;">
+          <strong>Admin Access:</strong><br>
+          Email: admin@alpha.in<br>
+          Password: Alpha@Admin2024
+        </div>
+      </div>
+      <div id="registerView" style="display:none;">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">First Name</label>
+            <input class="form-input" id="regFirst" placeholder="Rahul" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Last Name</label>
+            <input class="form-input" id="regLast" placeholder="Sharma" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <input class="form-input" type="email" id="regEmail" placeholder="your@email.com" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Mobile Number</label>
+          <input class="form-input" id="regPhone" placeholder="+91 98765 43210" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Date of Birth (Must be 18+)</label>
+          <input class="form-input" type="date" id="regDob" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <input class="form-input" type="password" id="regPassword" placeholder="Min 8 characters" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Referral Code (Optional)</label>
+          <input class="form-input" id="regRef" placeholder="ALPHA-XXXX" />
+        </div>
+        <div style="font-size: 0.8rem; color: var(--gray); margin-bottom: 1rem;">
+          By registering you agree to our <a class="form-link" onclick="navigate('terms')">Terms</a> and <a class="form-link" onclick="navigate('privacy-policy')">Privacy Policy</a>. You confirm you are 18+ years old.
+        </div>
+        <button class="btn-primary" style="width: 100%; justify-content: center; clip-path: none; margin-bottom: 1rem;" onclick="doRegister()">Create Account</button>
+        <p style="text-align: center; font-size: 0.9rem; color: var(--gray);">
+          Already have an account? <a class="form-link" onclick="showLoginView()">Sign In</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- COMPETITION ENTRY MODAL -->
+<div class="modal-overlay" id="entryModal">
+  <div class="modal" style="max-width: 600px;">
+    <div class="modal-header">
+      <div class="modal-title">ENTER COMPETITION</div>
+      <button class="modal-close" onclick="closeModal('entryModal')">✕</button>
+    </div>
+    <div class="modal-body" id="entryModalBody">
+    </div>
+  </div>
+</div>
+
+<!-- PAYMENT MODAL -->
+<div class="modal-overlay" id="paymentModal">
+  <div class="modal" style="max-width: 550px;">
+    <div class="modal-header">
+      <div class="modal-title">SECURE PAYMENT</div>
+      <button class="modal-close" onclick="closeModal('paymentModal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div style="text-align: center; margin-bottom: 1.5rem;">
+        <div style="font-family: var(--font-accent); font-size: 0.7rem; color: var(--gray); letter-spacing: 2px; margin-bottom: 0.3rem;">TOTAL AMOUNT</div>
+        <div style="font-family: var(--font-display); font-size: 3rem; color: var(--gold);" id="payAmount">₹0</div>
+        <div style="font-size: 0.8rem; color: var(--gray);" id="payDesc">0 tickets</div>
+      </div>
+
+      <div class="payment-methods">
+        <div class="payment-method active" onclick="selectPayMethod('upi', this)">
+          <span class="pm-icon">📱</span>UPI
+        </div>
+        <div class="payment-method" onclick="selectPayMethod('card', this)">
+          <span class="pm-icon">💳</span>Card
+        </div>
+        <div class="payment-method" onclick="selectPayMethod('netbanking', this)">
+          <span class="pm-icon">🏦</span>Net Banking
+        </div>
+        <div class="payment-method" onclick="selectPayMethod('wallet', this)">
+          <span class="pm-icon">👛</span>Wallet
+        </div>
+      </div>
+
+      <div id="payUpi">
+        <div class="form-group">
+          <label class="form-label">UPI ID</label>
+          <input class="form-input" id="upiId" placeholder="yourname@upi" />
+        </div>
+        <div style="font-size: 0.8rem; color: var(--gray); margin-bottom: 1rem;">
+          You'll receive a payment request on your UPI app. Apps: PhonePe, GPay, Paytm, BHIM
+        </div>
+      </div>
+
+      <div id="payCard" style="display:none;">
+        <div class="form-group">
+          <label class="form-label">Card Number</label>
+          <input class="form-input" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19" oninput="formatCard(this)" />
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Expiry</label>
+            <input class="form-input" placeholder="MM/YY" maxlength="5" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">CVV</label>
+            <input class="form-input" type="password" placeholder="•••" maxlength="4" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Card Holder Name</label>
+          <input class="form-input" placeholder="Name as on card" />
+        </div>
+      </div>
+
+      <div id="payNetbanking" style="display:none;">
+        <div class="form-group">
+          <label class="form-label">Select Bank</label>
+          <select class="form-input">
+            <option>State Bank of India</option>
+            <option>HDFC Bank</option>
+            <option>ICICI Bank</option>
+            <option>Axis Bank</option>
+            <option>Kotak Mahindra Bank</option>
+            <option>Punjab National Bank</option>
+            <option>Bank of Baroda</option>
+            <option>Other</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="payWallet" style="display:none;">
+        <div class="form-group">
+          <label class="form-label">Select Wallet</label>
+          <select class="form-input">
+            <option>Paytm</option>
+            <option>Amazon Pay</option>
+            <option>Mobikwik</option>
+            <option>Freecharge</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="highlight-box" style="font-size: 0.8rem; margin-bottom: 1.5rem;">
+        🔒 Payments powered by <strong>Razorpay</strong> — PCI DSS Level 1 Certified. Your payment details are never stored on Alpha servers.
+      </div>
+
+      <button class="btn-primary" style="width: 100%; justify-content: center; clip-path: none; font-size: 1rem; padding: 1.2rem;" onclick="processPayment()">
+        🔒 Pay Now
+      </button>
+      <p style="text-align: center; font-size: 0.75rem; color: var(--gray); margin-top: 1rem;">
+        By paying, you agree to our Terms & Conditions. 18+ only.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- ADD COMPETITION MODAL (Admin) -->
+<div class="modal-overlay" id="addCompModal">
+  <div class="modal" style="max-width: 700px;">
+    <div class="modal-header">
+      <div class="modal-title">ADD COMPETITION</div>
+      <button class="modal-close" onclick="closeModal('addCompModal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Prize Name</label>
+          <input class="form-input" id="newCompTitle" placeholder="e.g. Ferrari Roma Spider" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Category</label>
+          <select class="form-input" id="newCompCat">
+            <option value="cars">Cars & Bikes</option>
+            <option value="electronics">Electronics</option>
+            <option value="cash">Cash</option>
+            <option value="holidays">Holidays</option>
+            <option value="watches">Watches</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Prize Value (₹)</label>
+          <input class="form-input" id="newCompValue" type="number" placeholder="19500000" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Ticket Price (₹)</label>
+          <input class="form-input" id="newCompTicketPrice" type="number" placeholder="99" />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Total Tickets</label>
+          <input class="form-input" id="newCompTotal" type="number" placeholder="5000" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">End Date</label>
+          <input class="form-input" id="newCompEnd" type="datetime-local" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Emoji Icon</label>
+        <input class="form-input" id="newCompEmoji" placeholder="🏎️" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Description</label>
+        <textarea class="form-input" id="newCompDesc" rows="3" placeholder="Describe the prize in detail..."></textarea>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Skill Question</label>
+        <input class="form-input" id="newCompQuestion" placeholder="e.g. What is the capital of India?" />
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Option A</label>
+          <input class="form-input" id="newCompOptA" placeholder="Mumbai" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Option B</label>
+          <input class="form-input" id="newCompOptB" placeholder="Delhi" />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Option C</label>
+          <input class="form-input" id="newCompOptC" placeholder="Chennai" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Correct Answer</label>
+          <select class="form-input" id="newCompAnswer">
+            <option value="A">A</option>
+            <option value="B">B</option>
+            <option value="C">C</option>
+          </select>
+        </div>
+      </div>
+      <button class="btn-primary" onclick="addCompetition()" style="width: 100%; justify-content: center; clip-path: none;">Add Competition</button>
+    </div>
+  </div>
+</div>
+
+<!-- DRAW RESULT MODAL -->
+<div class="modal-overlay" id="drawModal">
+  <div class="modal" style="max-width: 500px;">
+    <div class="modal-header" style="background: var(--gold2);">
+      <div class="modal-title">🎉 WINNER DRAWN!</div>
+      <button class="modal-close" onclick="closeModal('drawModal')">✕</button>
+    </div>
+    <div class="modal-body" id="drawModalContent" style="text-align: center;">
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <div class="toast-title" id="toastTitle">NOTIFICATION</div>
+  <div id="toastMsg"></div>
+</div>
+
+<!-- BACK TO TOP -->
+<button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+// ============================================================
+// STATE MANAGEMENT
+// ============================================================
+const state = {
+  currentPage: 'home',
+  user: null,
+  cart: [],
+  currentComp: null,
+  entryTickets: 1,
+  selectedAnswer: null,
+  paymentMethod: 'upi',
+  filter: 'all',
+  searchQuery: '',
+  orders: [],
+  draws: []
+};
+
+// ============================================================
+// DATA
+// ============================================================
+const competitions = [
+  {
+    id: 1,
+    title: "Ferrari Roma Spider",
+    value: 19500000,
+    ticketPrice: 299,
+    totalTickets: 10000,
+    soldTickets: 7842,
+    category: "cars",
+    emoji: "🏎️",
+    endDate: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000),
+    description: "Win this stunning Ferrari Roma Spider in Rosso Portofino. Includes insurance, registration, and delivery anywhere in India.",
+    question: "What country is Ferrari headquartered in?",
+    options: ["Germany", "Italy", "France"],
+    answer: "B",
+    badge: "ending",
+    status: "live"
+  },
+  {
+    id: 2,
+    title: "₹25 Lakh Cash",
+    value: 2500000,
+    ticketPrice: 49,
+    totalTickets: 20000,
+    soldTickets: 9123,
+    category: "cash",
+    emoji: "💰",
+    endDate: new Date(Date.now() + 12 * 24 * 60 * 60 * 1000),
+    description: "₹25 Lakh cash prize transferred directly to your bank account within 7 days of winning. After TDS deduction per Indian law.",
+    question: "How many zeros are in One Lakh?",
+    options: ["4", "5", "6"],
+    answer: "B",
+    badge: "live",
+    status: "live"
+  },
+  {
+    id: 3,
+    title: "MacBook Pro M3 Max",
+    value: 350000,
+    ticketPrice: 99,
+    totalTickets: 2000,
+    soldTickets: 1456,
+    category: "electronics",
+    emoji: "💻",
+    endDate: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
+    description: "16-inch MacBook Pro with M3 Max chip, 48GB RAM, 1TB SSD. Silver finish. Includes 3-year AppleCare+.",
+    question: "What does 'Mac' stand for in Macintosh?",
+    options: ["Microcomputer", "Macintosh", "Macrosoft"],
+    answer: "A",
+    badge: "ending",
+    status: "live"
+  },
+  {
+    id: 4,
+    title: "Royal Enfield Super Meteor 650",
+    value: 380000,
+    ticketPrice: 79,
+    totalTickets: 5000,
+    soldTickets: 2341,
+    category: "cars",
+    emoji: "🏍️",
+    endDate: new Date(Date.now() + 18 * 24 * 60 * 60 * 1000),
+    description: "Brand new Royal Enfield Super Meteor 650 in Astral Black. Includes on-road costs and 3-year warranty.",
+    question: "Royal Enfield is originally from which country?",
+    options: ["India", "UK", "Japan"],
+    answer: "B",
+    badge: "live",
+    status: "live"
+  },
+  {
+    id: 5,
+    title: "Dubai 7-Night Luxury Holiday",
+    value: 500000,
+    ticketPrice: 149,
+    totalTickets: 3000,
+    soldTickets: 789,
+    category: "holidays",
+    emoji: "✈️",
+    endDate: new Date(Date.now() + 25 * 24 * 60 * 60 * 1000),
+    description: "7 nights in Dubai at Burj Al Arab Jumeirah for 2 people. Return flights from any Indian city, all meals included.",
+    question: "In which country is Dubai located?",
+    options: ["Saudi Arabia", "Oman", "UAE"],
+    answer: "C",
+    badge: "live",
+    status: "live"
+  },
+  {
+    id: 6,
+    title: "Rolex Submariner Date",
+    value: 1200000,
+    ticketPrice: 199,
+    totalTickets: 6000,
+    soldTickets: 4521,
+    category: "watches",
+    emoji: "⌚",
+    endDate: new Date(Date.now() + 8 * 24 * 60 * 60 * 1000),
+    description: "Rolex Submariner Date 41mm in Oystersteel with Cerachrom bezel. Comes with original box, papers, and 5-year warranty.",
+    question: "In which country is Rolex headquartered?",
+    options: ["France", "Germany", "Switzerland"],
+    answer: "C",
+    badge: "live",
+    status: "live"
+  },
+  {
+    id: 7,
+    title: "iPhone 16 Pro Max 1TB",
+    value: 175000,
+    ticketPrice: 69,
+    totalTickets: 2500,
+    soldTickets: 2100,
+    category: "electronics",
+    emoji: "📱",
+    endDate: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000),
+    description: "Apple iPhone 16 Pro Max 1TB in Titanium Black. Includes AirPods Pro 2nd Gen and MagSafe accessories bundle.",
+    question: "What does 'iOS' stand for?",
+    options: ["Internet Operating System", "iPhone Operating System", "iMac Operating System"],
+    answer: "B",
+    badge: "ending",
+    status: "live"
+  },
+  {
+    id: 8,
+    title: "BMW M5 Competition",
+    value: 11500000,
+    ticketPrice: 249,
+    totalTickets: 15000,
+    soldTickets: 4200,
+    category: "cars",
+    emoji: "🚗",
+    endDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+    description: "Brand new BMW M5 Competition in Alpine White. 4.4L V8 twin-turbo, 625 bhp. Ex-showroom Mumbai. Includes insurance and registration.",
+    question: "What does 'BMW' stand for?",
+    options: ["British Motor Works", "Bavarian Motor Works", "Belgian Motor Works"],
+    answer: "B",
+    badge: "live",
+    status: "live"
+  }
+];
+
+const winners = [
+  { name: "Rahul M.", location: "Mumbai, MH", prize: "BMW M5 Competition", date: "Dec 2023", initial: "R" },
+  { name: "Priya S.", location: "Bengaluru, KA", prize: "₹25 Lakh Cash", date: "Nov 2023", initial: "P" },
+  { name: "Arjun K.", location: "Delhi, DL", prize: "Rolex Submariner", date: "Nov 2023", initial: "A" },
+  { name: "Deepika P.", location: "Chennai, TN", prize: "MacBook Pro M3 Max", date: "Oct 2023", initial: "D" },
+  { name: "Vikram T.", location: "Hyderabad, TS", prize: "Royal Enfield", date: "Oct 2023", initial: "V" },
+  { name: "Ananya R.", location: "Pune, MH", prize: "Dubai Holiday", date: "Sep 2023", initial: "A" },
+  { name: "Suresh M.", location: "Kolkata, WB", prize: "₹10 Lakh Cash", date: "Sep 2023", initial: "S" },
+  { name: "Kavitha L.", location: "Ahmedabad, GJ", prize: "iPhone 15 Pro Max", date: "Aug 2023", initial: "K" },
+  { name: "Ravi N.", location: "Jaipur, RJ", prize: "Sony 65\" OLED TV", date: "Aug 2023", initial: "R" },
+  { name: "Meera B.", location: "Surat, GJ", prize: "₹5 Lakh Cash", date: "Jul 2023", initial: "M" },
+  { name: "Aakash J.", location: "Nagpur, MH", prize: "Samsung Galaxy S24 Ultra", date: "Jul 2023", initial: "A" },
+  { name: "Sunita D.", location: "Lucknow, UP", prize: "Maldives Holiday", date: "Jun 2023", initial: "S" }
+];
+
+const faqs = [
+  { q: "Is Alpha legal in India?", a: "Yes. Alpha operates as a skill-based competition platform under the Prize Competition Act, 1955. Entries require answering a skill-based question, and free postal entry is always available. We are not a lottery. Always check your local state laws." },
+  { q: "How old do I need to be?", a: "You must be at least 18 years of age to participate. We verify age during KYC for prize collection." },
+  { q: "Are the prizes real?", a: "Yes, all prizes are real. We have paid out over ₹47 Crore in prizes. Every draw is streamed live on our YouTube channel and independently verified." },
+  { q: "How are winners selected?", a: "Winners are selected using a certified Random Number Generator (RNG) after the competition sells out. The draw is conducted live on YouTube with an independent witness." },
+  { q: "What taxes do I pay on winnings?", a: "Prize winnings above ₹10,000 are subject to 30% TDS under Section 194B of the Income Tax Act. Alpha deducts this at source and provides you with Form 16A. You may have additional tax obligations — consult a CA." },
+  { q: "How do I collect my prize?", a: "Winners are contacted via registered email and phone within 24 hours. For cash prizes, the net amount (after TDS) is transferred within 7 business days. For physical prizes, delivery is arranged within 30 days." },
+  { q: "Can I get a refund on my tickets?", a: "Tickets are non-refundable once purchased, except if Alpha cancels a competition. In that case, full refunds are issued within 7 business days." },
+  { q: "What payment methods are accepted?", a: "We accept UPI (PhonePe, GPay, Paytm, BHIM), Credit/Debit Cards (Visa, Mastercard, RuPay), Net Banking, and e-Wallets via Razorpay." },
+  { q: "How many tickets can I buy?", a: "You can buy between 1 and 500 tickets per competition per account." },
+  { q: "What is the free entry option?", a: "Under the Prize Competition Act, you can enter any competition for free by sending your name, address, phone number, and skill question answer on a postcard to our Mumbai office. Free entries are entered in the same draw as paid entries." },
+  { q: "Is my personal data safe?", a: "Yes. We use industry-standard AES-256 encryption and comply with the IT Act 2000 and India's data protection framework. We never sell your data. See our Privacy Policy for full details." }
+];
+
+const users = [
+  { name: "admin", email: "admin@alpha.in", password: "Alpha@Admin2024", role: "admin", phone: "+91 98765 00000", joined: "Jan 2024", orders: 0 }
+];
+
+// ============================================================
+// NAVIGATION
+// ============================================================
+function navigate(page) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const el = document.getElementById('page-' + page);
+  if (el) {
+    el.classList.add('active');
+    state.currentPage = page;
+    window.scrollTo(0, 0);
+  }
+  // Render page-specific content
+  if (page === 'home') renderHomeWinners();
+  if (page === 'competitions') renderAllComps();
+  if (page === 'winners') renderAllWinners();
+  if (page === 'faq') renderFaq();
+  if (page === 'account') {
+    if (!state.user) { openModal('loginModal'); return; }
+    renderAccount();
+  }
+  if (page === 'cart') renderCart();
+  if (page === 'admin') {
+    if (!state.user || state.user.role !== 'admin') {
+      showToast('Admin access required', 'error');
+      openModal('loginModal');
+      return;
+    }
+    renderAdmin();
+  }
+}
+
+// ============================================================
+// AUTH
+// ============================================================
+function doLogin() {
+  const email = document.getElementById('loginEmail').value.trim();
+  const pw = document.getElementById('loginPassword').value;
+  const found = users.find(u => u.email === email && u.password === pw);
+  if (!found) { showToast('Invalid email or password', 'error'); return; }
+  state.user = found;
+  updateNavAuth();
+  closeModal('loginModal');
+  showToast(`Welcome back, ${found.name}! 👋`, 'success');
+  if (found.role === 'admin') {
+    showToast('Admin access granted ⚙️', 'success');
+    document.getElementById('adminNavLink').style.display = 'block';
+  }
+}
+
+function doRegister() {
+  const first = document.getElementById('regFirst').value.trim();
+  const last = document.getElementById('regLast').value.trim();
+  const email = document.getElementById('regEmail').value.trim();
+  const phone = document.getElementById('regPhone').value.trim();
+  const dob = document.getElementById('regDob').value;
+  const pw = document.getElementById('regPassword').value;
+  if (!first || !email || !pw) { showToast('Please fill all required fields', 'error'); return; }
+  if (pw.length < 8) { showToast('Password must be at least 8 characters', 'error'); return; }
+  if (dob) {
+    const age = (new Date() - new Date(dob)) / (1000 * 60 * 60 * 24 * 365);
+    if (age < 18) { showToast('You must be 18+ to register', 'error'); return; }
+  }
+  if (users.find(u => u.email === email)) { showToast('Email already registered', 'error'); return; }
+  const ref = 'ALPHA-' + Math.random().toString(36).substring(2, 6).toUpperCase();
+  const newUser = { name: first, lastName: last, email, phone, password: pw, role: 'user', joined: new Date().toLocaleDateString('en-IN', {month:'short', year:'numeric'}), orders: 0, referralCode: ref };
+  users.push(newUser);
+  state.user = newUser;
+  updateNavAuth();
+  closeModal('loginModal');
+  showToast(`Welcome to Alpha, ${first}! 🎉`, 'success');
+}
+
+function logout() {
+  state.user = null;
+  updateNavAuth();
+  navigate('home');
+  showToast('Logged out successfully', 'success');
+  document.getElementById('adminNavLink').style.display = 'none';
+}
+
+function updateNavAuth() {
+  const authLinks = document.getElementById('navAuthLinks');
+  const userLinks = document.getElementById('navUserLinks');
+  if (state.user) {
+    authLinks.style.display = 'none';
+    userLinks.style.display = 'block';
+    document.getElementById('accountName').textContent = (state.user.name || '') + ' ' + (state.user.lastName || '');
+    document.getElementById('accountEmail').textContent = state.user.email;
+    const initials = (state.user.name || 'A').charAt(0).toUpperCase();
+    document.getElementById('accountAvatar').textContent = initials;
+    document.getElementById('referralCode').textContent = state.user.referralCode || 'ALPHA-XXXX';
+    document.getElementById('referralLink').textContent = 'https://alpha.in/ref/' + (state.user.referralCode || 'ALPHA-XXXX');
+  } else {
+    authLinks.style.display = 'block';
+    userLinks.style.display = 'none';
+  }
+}
+
+function showRegisterView() {
+  document.getElementById('loginView').style.display = 'none';
+  document.getElementById('registerView').style.display = 'block';
+  document.getElementById('loginModalTitle').textContent = 'CREATE ACCOUNT';
+}
+
+function showLoginView() {
+  document.getElementById('loginView').style.display = 'block';
+  document.getElementById('registerView').style.display = 'none';
+  document.getElementById('loginModalTitle').textContent = 'SIGN IN';
+}
+
+// ============================================================
+// COMPETITIONS
+// ============================================================
+function getFilteredComps() {
+  return competitions.filter(c => {
+    const matchesFilter = state.filter === 'all' || 
+      (state.filter === 'ending' && c.badge === 'ending') ||
+      c.category === state.filter;
+    const matchesSearch = !state.searchQuery || 
+      c.title.toLowerCase().includes(state.searchQuery.toLowerCase());
+    return matchesFilter && matchesSearch;
+  });
+}
+
+function getSoldLevel(pct) {
+  if (pct >= 90) return 'critical';
+  if (pct >= 70) return 'high';
+  if (pct >= 40) return 'mid';
+  return 'low';
+}
+
+function getUrgencyText(pct, remaining) {
+  if (pct >= 90) return '🔴 ALMOST GONE!';
+  if (pct >= 70) return '🟠 SELLING FAST';
+  if (pct >= 40) return '🟡 FILLING UP';
+  return '🟢 AVAILABLE';
+}
+
+function renderSoldMeter(c) {
+  const pct = Math.round((c.soldTickets / c.totalTickets) * 100);
+  const remaining = c.totalTickets - c.soldTickets;
+  const level = getSoldLevel(pct);
+  const urgency = getUrgencyText(pct, remaining);
+  return `
+    <div class="sold-meter">
+      <div class="sold-meter-bg ${level}" style="width:${pct}%"></div>
+      <div class="sold-meter-content">
+        <div>
+          <div class="sold-pct-big ${level}" id="pct-${c.id}">${pct}%</div>
+          <div style="font-family:var(--font-accent); font-size:0.55rem; color:var(--gray); letter-spacing:1px; margin-top:0.1rem;">TICKETS SOLD</div>
+          <div class="urgency-label ${level}">${urgency}</div>
+        </div>
+        <div class="sold-meter-right">
+          <div class="sold-remaining">
+            <strong class="counter-anim" id="rem-${c.id}">${remaining.toLocaleString('en-IN')}</strong>
+          </div>
+          <div style="font-family:var(--font-accent); font-size:0.55rem; color:var(--gray); letter-spacing:1px; margin-top:0.2rem;">REMAINING</div>
+          <div style="font-family:var(--font-accent); font-size:0.55rem; color:var(--gray2); margin-top:0.2rem;">${c.soldTickets.toLocaleString('en-IN')} / ${c.totalTickets.toLocaleString('en-IN')}</div>
+        </div>
+      </div>
+    </div>
+    <div class="progress-bar" style="height:6px; margin-bottom:0.8rem;">
+      <div class="progress-fill ${level === 'critical' || level === 'high' ? level : ''}" id="bar-${c.id}" style="width:${pct}%"></div>
+    </div>
+  `;
+}
+
+function renderComp(c) {
+  const timeLeft = getTimeLeft(c.endDate);
+  return `
+    <div class="comp-card" onclick="viewComp(${c.id})">
+      <div class="comp-card-img-placeholder">
+        ${c.emoji}
+        <span class="comp-badge ${c.badge === 'ending' ? 'ending' : ''}">${c.badge === 'ending' ? '🔥 Ending Soon' : '🟢 Live'}</span>
+      </div>
+      <div class="comp-card-body">
+        <div class="comp-title">${c.title}</div>
+        <div class="comp-value">Worth ₹${formatINR(c.value)}</div>
+        ${renderSoldMeter(c)}
+        <div class="countdown" id="countdown-${c.id}">
+          ${renderCountdown(timeLeft)}
+        </div>
+        <div class="comp-footer">
+          <div class="comp-price">
+            ₹${c.ticketPrice}
+            <span>per ticket</span>
+          </div>
+          <button class="btn-primary" style="clip-path:none; padding: 0.6rem 1.2rem; font-size: 0.7rem;" onclick="event.stopPropagation(); enterComp(${c.id})">Enter Now</button>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function renderCountdown(t) {
+  return `
+    <div class="countdown-item"><span class="countdown-num">${t.d}</span><span class="countdown-label">Days</span></div>
+    <div class="countdown-item"><span class="countdown-num">${t.h}</span><span class="countdown-label">Hrs</span></div>
+    <div class="countdown-item"><span class="countdown-num">${t.m}</span><span class="countdown-label">Min</span></div>
+    <div class="countdown-item"><span class="countdown-num">${t.s}</span><span class="countdown-label">Sec</span></div>
+  `;
+}
+
+function getTimeLeft(endDate) {
+  const diff = endDate - new Date();
+  if (diff <= 0) return {d:'00',h:'00',m:'00',s:'00'};
+  const d = Math.floor(diff/(1000*60*60*24));
+  const h = Math.floor((diff%(1000*60*60*24))/(1000*60*60));
+  const m = Math.floor((diff%(1000*60*60))/(1000*60));
+  const s = Math.floor((diff%(1000*60))/1000);
+  return {d:String(d).padStart(2,'0'),h:String(h).padStart(2,'0'),m:String(m).padStart(2,'0'),s:String(s).padStart(2,'0')};
+}
+
+function renderHomeWinners() {
+  const el = document.getElementById('homeWinners');
+  if (!el) return;
+  el.innerHTML = winners.slice(0, 6).map(w => `
+    <div class="winner-card">
+      <div class="winner-avatar">${w.initial}</div>
+      <div class="winner-info">
+        <div class="winner-name">${w.name}</div>
+        <div class="winner-prize">🏆 ${w.prize}</div>
+        <div class="winner-date">${w.location} • ${w.date}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderAllWinners() {
+  const el = document.getElementById('allWinners');
+  if (!el) return;
+  el.innerHTML = winners.map(w => `
+    <div class="winner-card">
+      <div class="winner-avatar">${w.initial}</div>
+      <div class="winner-info">
+        <div class="winner-name">${w.name}</div>
+        <div class="winner-prize">🏆 ${w.prize}</div>
+        <div class="winner-date">${w.location} • ${w.date}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderAllComps() {
+  const el = document.getElementById('allComps');
+  if (!el) return;
+  const filtered = getFilteredComps();
+  el.innerHTML = filtered.map(renderComp).join('');
+}
+
+function setFilter(f, btn) {
+  state.filter = f;
+  document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  renderAllComps();
+}
+
+function filterComps(q) {
+  state.searchQuery = q;
+  renderAllComps();
+}
+
+function renderFeaturedComps() {
+  const el = document.getElementById('featuredComps');
+  if (!el) return;
+  el.innerHTML = competitions.slice(0, 3).map(renderComp).join('');
+}
+
+function viewComp(id) {
+  const c = competitions.find(x => x.id === id);
+  if (!c) return;
+  state.currentComp = c;
+  const pct = Math.round((c.soldTickets / c.totalTickets) * 100);
+  const remaining = c.totalTickets - c.soldTickets;
+  const tl = getTimeLeft(c.endDate);
+  document.getElementById('compDetailContent').innerHTML = `
+    <div class="comp-detail-hero">
+      <div class="comp-detail-img" style="font-size: 8rem;">${c.emoji}</div>
+      <div class="comp-detail-info">
+        <div class="comp-badge" style="position:static; display:inline-block; margin-bottom: 1rem;">${c.badge === 'ending' ? '🔥 Ending Soon' : '🟢 Live'}</div>
+        <div style="font-family:var(--font-display); font-size: 2.5rem; letter-spacing: 3px; margin-bottom: 0.5rem;">${c.title}</div>
+        <div style="font-family:var(--font-accent); color:var(--gold); font-size:0.9rem; letter-spacing:2px; margin-bottom: 1.5rem;">WORTH ₹${formatINR(c.value)}</div>
+        <p style="color:var(--gray); line-height:1.8; margin-bottom: 1.5rem;">${c.description}</p>
+        <div class="progress-wrap" style="margin-bottom:1.5rem;">
+          <div class="progress-label"><span>${c.soldTickets.toLocaleString('en-IN')} sold</span><span>${remaining.toLocaleString('en-IN')} remaining</span></div>
+          <div class="progress-bar" style="height:8px;"><div class="progress-fill" style="width:${pct}%;"></div></div>
+          <div style="font-family:var(--font-accent); font-size:0.7rem; color:var(--gray); margin-top:0.5rem; letter-spacing:2px;">${pct}% SOLD OUT</div>
+        </div>
+        <div class="countdown" style="margin-bottom:1.5rem;" id="detailCountdown">
+          ${renderCountdown(tl)}
+        </div>
+        <div style="display:flex; gap:1rem; align-items:center; margin-bottom:1rem;">
+          <div style="font-family:var(--font-display); font-size:2rem;">₹${c.ticketPrice}</div>
+          <div style="color:var(--gray); font-size:0.8rem;">per ticket<br>Odds: 1 in ${Math.round(c.totalTickets/1)}</div>
+        </div>
+        <button class="btn-primary" onclick="enterComp(${c.id})" style="font-size:1rem;">🎫 Enter Now</button>
+      </div>
+    </div>
+    <section style="padding: 4rem 2rem; background: var(--dark);">
+      <div style="max-width: 800px; margin: 0 auto;">
+        <h2 style="font-family:var(--font-display); font-size:2rem; letter-spacing:3px; margin-bottom:2rem;">COMPETITION <span style="color:var(--red);">DETAILS</span></h2>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:2rem;">
+          <div class="stat-card"><div class="stat-card-label">Total Tickets</div><div class="stat-card-value">${c.totalTickets.toLocaleString('en-IN')}</div></div>
+          <div class="stat-card"><div class="stat-card-label">Ticket Price</div><div class="stat-card-value">₹${c.ticketPrice}</div></div>
+          <div class="stat-card"><div class="stat-card-label">Tickets Remaining</div><div class="stat-card-value">${remaining.toLocaleString('en-IN')}</div></div>
+          <div class="stat-card"><div class="stat-card-label">Max Per Person</div><div class="stat-card-value">500</div></div>
+        </div>
+        <div class="highlight-box">
+          <strong>🆓 Free Entry Available:</strong> Post your answer to the skill question to our Mumbai office. See Terms for details.
+        </div>
+      </div>
+    </section>
+    <footer style="background:var(--dark); border-top: 1px solid var(--dark3); padding: 2rem;">
+      <div style="max-width:1200px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
+        <p style="color:var(--gray); font-size:0.8rem;">© 2024 Alpha Competition Pvt. Ltd. All Rights Reserved</p>
+        <div style="display:flex; gap:0.5rem;">
+          <button class="btn-secondary" onclick="navigate('competitions')" style="font-size:0.7rem; padding:0.5rem 1rem;">← All Competitions</button>
+        </div>
+      </div>
+    </footer>
+  `;
+  navigate('comp-detail');
+}
+
+// ============================================================
+// ENTRY FLOW
+// ============================================================
+function enterComp(id) {
+  if (!state.user) {
+    openModal('loginModal');
+    showToast('Please login to enter competitions', 'error');
+    return;
+  }
+  const c = competitions.find(x => x.id === id);
+  if (!c) return;
+  state.currentComp = c;
+  state.entryTickets = 1;
+  state.selectedAnswer = null;
+  renderEntryModal(c);
+  openModal('entryModal');
+}
+
+function renderEntryModal(c) {
+  const body = document.getElementById('entryModalBody');
+  body.innerHTML = `
+    <div style="display:flex; align-items:center; gap:1rem; margin-bottom:1.5rem; padding-bottom:1.5rem; border-bottom:1px solid var(--dark3);">
+      <div style="font-size:2.5rem;">${c.emoji}</div>
+      <div>
+        <div style="font-family:var(--font-display); font-size:1.3rem; letter-spacing:2px;">${c.title}</div>
+        <div style="color:var(--gold); font-family:var(--font-accent); font-size:0.7rem; letter-spacing:2px;">₹${c.ticketPrice} PER TICKET</div>
+      </div>
+    </div>
+
+    <div class="ticket-selector">
+      <div class="ticket-selector-label">Select Number of Tickets</div>
+      <div class="ticket-amounts">
+        ${[1,5,10,25,50,100].map(n => `<button class="ticket-btn ${n===1?'active':''}" onclick="setTickets(${n}, this)">${n}</button>`).join('')}
+      </div>
+      <div class="ticket-custom">
+        <div class="ticket-counter">
+          <button class="ticket-counter-btn" onclick="adjustTickets(-1)">−</button>
+          <div class="ticket-count-display" id="ticketDisplay">1</div>
+          <button class="ticket-counter-btn" onclick="adjustTickets(1)">+</button>
+        </div>
+        <span style="color:var(--gray); font-size:0.85rem;">or enter custom amount</span>
+      </div>
+      <div class="ticket-total">
+        <div class="ticket-total-label">Your Total</div>
+        <div class="ticket-total-amount" id="entryTotal">₹${c.ticketPrice}</div>
+      </div>
+      <div style="font-size:0.75rem; color:var(--gray);">Your odds: 1 in ${c.totalTickets.toLocaleString('en-IN')}</div>
+    </div>
+
+    <div class="question-box">
+      <div style="font-family:var(--font-accent); font-size:0.6rem; letter-spacing:3px; color:var(--red); margin-bottom:0.8rem;">SKILL QUESTION (REQUIRED)</div>
+      <div class="question-text">${c.question}</div>
+      <div class="question-options">
+        ${c.options.map((opt, i) => {
+          const letter = ['A','B','C'][i];
+          return `<div class="question-option" onclick="selectAnswer('${letter}', this)">
+            <input type="radio" name="answer" value="${letter}" id="opt${letter}" />
+            <label for="opt${letter}"><strong>${letter}.</strong> ${opt}</label>
+          </div>`;
+        }).join('')}
+      </div>
+    </div>
+
+    <button class="btn-primary" onclick="proceedToPayment()" style="width:100%; justify-content:center; clip-path:none; padding:1.2rem; font-size:1rem;">Continue to Payment →</button>
+    <p style="text-align:center; font-size:0.75rem; color:var(--gray); margin-top:1rem;">🆓 <a class="form-link" onclick="navigate('how-it-works')">Free postal entry available</a></p>
+  `;
+}
+
+function setTickets(n, btn) {
+  state.entryTickets = n;
+  document.getElementById('ticketDisplay').textContent = n;
+  document.getElementById('entryTotal').textContent = '₹' + formatINR(n * state.currentComp.ticketPrice);
+  document.querySelectorAll('.ticket-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+function adjustTickets(d) {
+  const newVal = Math.max(1, Math.min(500, state.entryTickets + d));
+  state.entryTickets = newVal;
+  document.getElementById('ticketDisplay').textContent = newVal;
+  document.getElementById('entryTotal').textContent = '₹' + formatINR(newVal * state.currentComp.ticketPrice);
+  document.querySelectorAll('.ticket-btn').forEach(b => b.classList.remove('active'));
+}
+
+function selectAnswer(letter, el) {
+  state.selectedAnswer = letter;
+  document.querySelectorAll('.question-option').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  document.querySelector(`#opt${letter}`).checked = true;
+}
+
+function proceedToPayment() {
+  if (!state.selectedAnswer) {
+    showToast('Please answer the skill question', 'error');
+    return;
+  }
+  const c = state.currentComp;
+  const total = state.entryTickets * c.ticketPrice;
+  closeModal('entryModal');
+  document.getElementById('payAmount').textContent = '₹' + formatINR(total);
+  document.getElementById('payDesc').textContent = `${state.entryTickets} ticket${state.entryTickets>1?'s':''} for ${c.title}`;
+  openModal('paymentModal');
+}
+
+function selectPayMethod(method, el) {
+  state.paymentMethod = method;
+  document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('active'));
+  el.classList.add('active');
+  ['upi','card','netbanking','wallet'].forEach(m => {
+    document.getElementById('pay' + m.charAt(0).toUpperCase() + m.slice(1)).style.display = method === m ? 'block' : 'none';
+  });
+}
+
+function processPayment() {
+  const c = state.currentComp;
+  if (!c) return;
+  closeModal('paymentModal');
+
+  // Simulate payment processing
+  const loadingToast = () => showToast('Processing payment...', 'success');
+  loadingToast();
+
+  setTimeout(() => {
+    // Record order
+    const ref = 'ALPHA-' + Date.now().toString().slice(-6);
+    const order = {
+      id: ref,
+      user: state.user.email,
+      userName: state.user.name,
+      competition: c.title,
+      compId: c.id,
+      tickets: state.entryTickets,
+      amount: state.entryTickets * c.ticketPrice,
+      date: new Date().toLocaleDateString('en-IN'),
+      status: 'confirmed',
+      answer: state.selectedAnswer,
+      correct: state.selectedAnswer === c.answer
+    };
+    state.orders.push(order);
+    c.soldTickets = Math.min(c.totalTickets, c.soldTickets + state.entryTickets);
+
+    // Add to user entries
+    if (state.user) {
+      state.user.entries = state.user.entries || [];
+      state.user.entries.push(order);
+      state.user.orders++;
+    }
+
+    document.getElementById('ticketRefDisplay').textContent = ref;
+    navigate('success');
+    showToast('🎉 Entry confirmed! Good luck!', 'success');
+  }, 2000);
+}
+
+// ============================================================
+// CART
+// ============================================================
+function addToCart(compId, tickets) {
+  const c = competitions.find(x => x.id === compId);
+  if (!c) return;
+  const existing = state.cart.find(i => i.compId === compId);
+  if (existing) {
+    existing.tickets += tickets;
+  } else {
+    state.cart.push({ compId, comp: c, tickets, price: c.ticketPrice });
+  }
+  showToast(`${tickets} ticket(s) added to cart!`, 'success');
+}
+
+function renderCart() {
+  const el = document.getElementById('cartContent');
+  if (!el) return;
+  if (state.cart.length === 0) {
+    el.innerHTML = `<div style="text-align:center; padding:4rem; color:var(--gray);">
+      <div style="font-size:4rem; margin-bottom:1rem;">🛒</div>
+      <p>Your cart is empty.</p>
+      <button class="btn-primary" onclick="navigate('competitions')" style="margin-top:1rem;">Browse Competitions</button>
+    </div>`;
+    return;
+  }
+  const total = state.cart.reduce((s, i) => s + i.tickets * i.price, 0);
+  el.innerHTML = `
+    <div class="cart-items">
+      ${state.cart.map((item, idx) => `
+        <div class="cart-item">
+          <div class="cart-item-emoji">${item.comp.emoji}</div>
+          <div class="cart-item-info">
+            <div class="cart-item-title">${item.comp.title}</div>
+            <div class="cart-item-tickets">${item.tickets} ticket${item.tickets>1?'s':''} × ₹${item.price}</div>
+          </div>
+          <div class="cart-item-price">₹${formatINR(item.tickets * item.price)}</div>
+          <button class="cart-item-remove" onclick="removeFromCart(${idx})">Remove</button>
+        </div>
+      `).join('')}
+    </div>
+    <div class="cart-summary">
+      <div class="cart-summary-row"><span>Subtotal</span><span>₹${formatINR(total)}</span></div>
+      <div class="cart-summary-row"><span>GST (18%)</span><span>₹${formatINR(Math.round(total * 0.18))}</span></div>
+      <div class="cart-summary-total"><span>Total</span><span>₹${formatINR(Math.round(total * 1.18))}</span></div>
+      <button class="btn-primary" style="width:100%; justify-content:center; clip-path:none; margin-top:1rem; padding:1.2rem;">Proceed to Checkout →</button>
+    </div>
+  `;
+}
+
+function removeFromCart(idx) {
+  state.cart.splice(idx, 1);
+  renderCart();
+}
+
+// ============================================================
+// ACCOUNT
+// ============================================================
+function switchTab(tab, el) {
+  document.querySelectorAll('.account-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.account-tab-content').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('tab-' + tab).classList.add('active');
+}
+
+function renderAccount() {
+  if (!state.user) return;
+  const entries = state.user.entries || [];
+  document.getElementById('acctEntries').textContent = entries.length;
+  document.getElementById('acctTickets').textContent = entries.reduce((s, e) => s + (e.tickets || 0), 0);
+  document.getElementById('acctWins').textContent = '0';
+  document.getElementById('acctBalance').textContent = '₹0';
+  document.getElementById('profileFirstName').value = state.user.name || '';
+  document.getElementById('profileLastName').value = state.user.lastName || '';
+  document.getElementById('profileEmail').value = state.user.email || '';
+  document.getElementById('profilePhone').value = state.user.phone || '';
+
+  const entriesEl = document.getElementById('myEntries');
+  if (entries.length === 0) {
+    entriesEl.innerHTML = `<div style="text-align:center; padding:3rem; color:var(--gray);">
+      <div style="font-size:3rem;">🎫</div>
+      <p style="margin-top:1rem;">No entries yet. <a class="form-link" onclick="navigate('competitions')">Enter a competition →</a></p>
+    </div>`;
+  } else {
+    entriesEl.innerHTML = entries.map(e => {
+      const c = competitions.find(x => x.id === e.compId);
+      return `<div class="entry-card">
+        <div class="entry-emoji">${c ? c.emoji : '🏆'}</div>
+        <div class="entry-info">
+          <div class="entry-title">${e.competition}</div>
+          <div class="entry-meta">${e.tickets} ticket${e.tickets>1?'s':''} • Ref: ${e.id} • ${e.date}</div>
+        </div>
+        <span class="entry-status live">Live</span>
+      </div>`;
+    }).join('');
+  }
+
+  // Transactions
+  const txTable = document.getElementById('transactionTable');
+  if (entries.length > 0) {
+    txTable.innerHTML = entries.map(e => `
+      <tr>
+        <td>${e.date}</td>
+        <td>${e.competition} (${e.tickets} tickets)</td>
+        <td style="color:var(--red);">-₹${formatINR(e.amount)}</td>
+        <td><span class="badge badge-success">Confirmed</span></td>
+      </tr>
+    `).join('');
+  }
+}
+
+function saveProfile() {
+  if (state.user) {
+    state.user.name = document.getElementById('profileFirstName').value;
+    state.user.lastName = document.getElementById('profileLastName').value;
+    showToast('Profile updated!', 'success');
+    updateNavAuth();
+  }
+}
+
+function copyReferral() {
+  const code = state.user?.referralCode || 'ALPHA-XXXX';
+  navigator.clipboard?.writeText(code).then(() => showToast('Referral code copied!', 'success'));
+}
+
+// ============================================================
+// ADMIN
+// ============================================================
+function showAdminPanel(panel, el) {
+  document.querySelectorAll('.admin-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.admin-nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('admin-' + panel).classList.add('active');
+  el.classList.add('active');
+}
+
+function renderPricingPanel() {
+  const el = document.getElementById('pricingCards');
+  if (!el) return;
+  el.innerHTML = competitions.map((c, idx) => {
+    const pct = Math.round((c.soldTickets / c.totalTickets) * 100);
+    const rem = c.totalTickets - c.soldTickets;
+    const level = getSoldLevel(pct);
+    return `
+    <div class="admin-form-card" style="margin-bottom:1rem;">
+      <div style="display:flex; align-items:center; gap:1rem; margin-bottom:1.2rem; padding-bottom:1rem; border-bottom:1px solid var(--dark3);">
+        <div style="font-size:2rem;">${c.emoji}</div>
+        <div style="flex:1;">
+          <div style="font-family:var(--font-display); font-size:1.3rem; letter-spacing:2px;">${c.title}</div>
+          <div style="display:flex; gap:1rem; align-items:center; margin-top:0.3rem;">
+            <span class="sold-pct-big ${level}" style="font-size:1rem;">${pct}% sold</span>
+            <span style="font-size:0.75rem; color:var(--gray);">${c.soldTickets.toLocaleString('en-IN')} / ${c.totalTickets.toLocaleString('en-IN')} tickets</span>
+            <span class="urgency-label ${level}">${getUrgencyText(pct, rem)}</span>
+          </div>
+          <div style="height:4px; background:var(--dark3); margin-top:0.5rem; width:200px;">
+            <div style="height:100%; width:${pct}%; background:linear-gradient(90deg,var(--red-dark),var(--red-bright));"></div>
+          </div>
+        </div>
+        <div style="text-align:right;">
+          <span class="badge ${c.status === 'live' ? 'badge-success' : 'badge-gray'}">${c.status.toUpperCase()}</span>
+        </div>
+      </div>
+      <div class="form-row" style="grid-template-columns: repeat(4, 1fr); gap:0.8rem;">
+        <div class="form-group" style="margin-bottom:0;">
+          <label class="form-label">Ticket Price (₹)</label>
+          <input class="form-input" id="price-${idx}" type="number" value="${c.ticketPrice}" min="1" style="padding:0.5rem 0.8rem; font-size:0.9rem;" />
+        </div>
+        <div class="form-group" style="margin-bottom:0;">
+          <label class="form-label">Total Tickets</label>
+          <input class="form-input" id="total-${idx}" type="number" value="${c.totalTickets}" min="${c.soldTickets}" style="padding:0.5rem 0.8rem; font-size:0.9rem;" />
+        </div>
+        <div class="form-group" style="margin-bottom:0;">
+          <label class="form-label">Prize Value (₹)</label>
+          <input class="form-input" id="value-${idx}" type="number" value="${c.value}" min="1" style="padding:0.5rem 0.8rem; font-size:0.9rem;" />
+        </div>
+        <div class="form-group" style="margin-bottom:0;">
+          <label class="form-label">Status</label>
+          <select class="form-input" id="status-${idx}" style="padding:0.5rem 0.8rem; font-size:0.9rem;">
+            <option value="live" ${c.status==='live'?'selected':''}>🟢 Live</option>
+            <option value="paused" ${c.status==='paused'?'selected':''}>⏸ Paused</option>
+            <option value="completed" ${c.status==='completed'?'selected':''}>✅ Completed</option>
+          </select>
+        </div>
+      </div>
+      <div style="display:flex; gap:0.5rem; margin-top:1rem;">
+        <button class="btn-small btn-sm-red" onclick="savePricing(${idx})">💾 Save Changes</button>
+        <button class="btn-small btn-sm-gray" onclick="conductDrawForComp(${c.id})">🎬 Draw Winner</button>
+        <button class="btn-small btn-sm-gray" onclick="deleteComp(${idx})" style="margin-left:auto; color:var(--red);">🗑 Delete</button>
+      </div>
+    </div>
+    `;
+  }).join('');
+}
+
+function savePricing(idx) {
+  const c = competitions[idx];
+  const newPrice  = parseInt(document.getElementById('price-' + idx).value);
+  const newTotal  = parseInt(document.getElementById('total-' + idx).value);
+  const newValue  = parseInt(document.getElementById('value-' + idx).value);
+  const newStatus = document.getElementById('status-' + idx).value;
+
+  if (newPrice < 1) { showToast('Ticket price must be at least ₹1', 'error'); return; }
+  if (newTotal < c.soldTickets) { showToast(`Cannot set total below already sold tickets (${c.soldTickets})`, 'error'); return; }
+
+  c.ticketPrice = newPrice;
+  c.totalTickets = newTotal;
+  c.value = newValue;
+  c.status = newStatus;
+
+  showToast(`✅ ${c.title} — pricing updated!`, 'success');
+  renderPricingPanel();
+  renderAdmin();
+
+  // Re-render live pages if visible
+  if (state.currentPage === 'competitions') renderAllComps();
+  if (state.currentPage === 'home') renderFeaturedComps();
+}
+
+function deleteComp(idx) {
+  if (!confirm('Delete this competition? This cannot be undone.')) return;
+  competitions.splice(idx, 1);
+  showToast('Competition deleted', 'success');
+  renderPricingPanel();
+  renderAdmin();
+}
+
+function renderAdmin() {
+  // Dashboard stats
+  const totalRevenue = state.orders.reduce((s, o) => s + o.amount, 0);
+  document.getElementById('adminRevenue').textContent = '₹' + formatINR(totalRevenue);
+  document.getElementById('adminActiveComps').textContent = competitions.filter(c => c.status === 'live').length;
+  document.getElementById('adminUsers').textContent = users.filter(u => u.role !== 'admin').length;
+  document.getElementById('adminTicketsToday').textContent = state.orders.reduce((s, o) => s + o.tickets, 0);
+  document.getElementById('adminPending').textContent = state.orders.filter(o => o.status === 'pending').length;
+  document.getElementById('adminWinners').textContent = state.draws.length;
+  document.getElementById('payTotal').textContent = '₹' + formatINR(totalRevenue);
+  document.getElementById('payMonth').textContent = '₹' + formatINR(totalRevenue);
+  document.getElementById('payRefunds').textContent = '₹0';
+  document.getElementById('payFee').textContent = '₹' + formatINR(Math.round(totalRevenue * 0.02));
+
+  // Recent orders table
+  const rot = document.getElementById('recentOrdersTable');
+  rot.innerHTML = state.orders.length > 0 ? state.orders.slice(-5).reverse().map(o => `
+    <tr>
+      <td>${o.userName}</td>
+      <td style="font-size:0.8rem;">${o.competition.slice(0,20)}...</td>
+      <td>₹${formatINR(o.amount)}</td>
+      <td><span class="badge badge-success">Confirmed</span></td>
+    </tr>
+  `).join('') : '<tr><td colspan="4" style="color:var(--gray); text-align:center;">No orders yet</td></tr>';
+
+  // Comp stats table
+  const cst = document.getElementById('compStatsTable');
+  cst.innerHTML = competitions.map(c => `
+    <tr>
+      <td>${c.emoji} ${c.title.slice(0,20)}</td>
+      <td>${c.soldTickets.toLocaleString('en-IN')}</td>
+      <td><span style="color:var(--red);">${Math.round(c.soldTickets/c.totalTickets*100)}%</span></td>
+    </tr>
+  `).join('');
+
+  // Competitions table
+  const act = document.getElementById('adminCompTable');
+  act.innerHTML = competitions.map(c => `
+    <tr>
+      <td>${c.emoji} ${c.title}</td>
+      <td>₹${formatINR(c.value)}</td>
+      <td>₹${c.ticketPrice}</td>
+      <td>${c.soldTickets.toLocaleString('en-IN')}/${c.totalTickets.toLocaleString('en-IN')}</td>
+      <td style="font-size:0.8rem;">${c.endDate.toLocaleDateString('en-IN')}</td>
+      <td><span class="badge badge-success">Live</span></td>
+      <td>
+        <button class="btn-small btn-sm-gray" onclick="showToast('Edit coming soon', 'success')">Edit</button>
+        <button class="btn-small btn-sm-red" onclick="conductDrawForComp(${c.id})" style="margin-left:0.3rem;">Draw</button>
+      </td>
+    </tr>
+  `).join('');
+
+  // Orders
+  const aot = document.getElementById('adminOrdersTable');
+  aot.innerHTML = state.orders.length > 0 ? state.orders.map(o => `
+    <tr>
+      <td style="font-family:var(--font-accent); font-size:0.7rem; color:var(--red);">${o.id}</td>
+      <td>${o.userName}</td>
+      <td>${o.competition.slice(0,25)}</td>
+      <td>${o.tickets}</td>
+      <td>₹${formatINR(o.amount)}</td>
+      <td>${o.date}</td>
+      <td><span class="badge badge-success">Confirmed</span></td>
+    </tr>
+  `).join('') : '<tr><td colspan="7" style="color:var(--gray); text-align:center;">No orders yet</td></tr>';
+
+  // Users table
+  const aut = document.getElementById('adminUsersTable');
+  aut.innerHTML = users.filter(u => u.role !== 'admin').map(u => `
+    <tr>
+      <td>${u.name}</td>
+      <td>${u.email}</td>
+      <td>${u.phone || '-'}</td>
+      <td>${u.joined}</td>
+      <td>${u.orders}</td>
+      <td><span class="badge badge-success">Active</span></td>
+    </tr>
+  `).join('') || '<tr><td colspan="6" style="color:var(--gray); text-align:center;">No users yet</td></tr>';
+
+  // Draw select
+  const ds = document.getElementById('drawCompSelect');
+  ds.innerHTML = '<option value="">-- Select Competition --</option>' + 
+    competitions.map(c => `<option value="${c.id}">${c.emoji} ${c.title}</option>`).join('');
+
+  // Past draws
+  const pdt = document.getElementById('pastDrawsTable');
+  pdt.innerHTML = state.draws.length > 0 ? state.draws.map(d => `
+    <tr>
+      <td>${d.competition}</td>
+      <td>${d.winner}</td>
+      <td style="font-family:var(--font-accent); color:var(--gold);">#${d.ticketNum}</td>
+      <td>${d.date}</td>
+    </tr>
+  `).join('') : '<tr><td colspan="4" style="color:var(--gray); text-align:center;">No draws yet</td></tr>';
+
+  // Pricing panel
+  renderPricingPanel();
+}
+
+function addCompetition() {
+  const title = document.getElementById('newCompTitle').value.trim();
+  const value = parseInt(document.getElementById('newCompValue').value);
+  const price = parseInt(document.getElementById('newCompTicketPrice').value);
+  const total = parseInt(document.getElementById('newCompTotal').value);
+  const endDate = document.getElementById('newCompEnd').value;
+  const emoji = document.getElementById('newCompEmoji').value || '🏆';
+  const cat = document.getElementById('newCompCat').value;
+  const desc = document.getElementById('newCompDesc').value;
+  const question = document.getElementById('newCompQuestion').value;
+  const optA = document.getElementById('newCompOptA').value;
+  const optB = document.getElementById('newCompOptB').value;
+  const optC = document.getElementById('newCompOptC').value;
+  const answer = document.getElementById('newCompAnswer').value;
+
+  if (!title || !value || !price || !total || !endDate) {
+    showToast('Please fill all required fields', 'error');
+    return;
+  }
+
+  competitions.push({
+    id: competitions.length + 1,
+    title, value, ticketPrice: price, totalTickets: total,
+    soldTickets: 0, category: cat, emoji,
+    endDate: new Date(endDate),
+    description: desc || 'Win this incredible prize!',
+    question: question || 'What is 2 + 2?',
+    options: [optA || 'Option A', optB || 'Option B', optC || 'Option C'],
+    answer, badge: 'live', status: 'live'
+  });
+
+  closeModal('addCompModal');
+  showToast('Competition added successfully!', 'success');
+  renderAdmin();
+}
+
+function conductDraw() {
+  const id = document.getElementById('drawCompSelect').value;
+  if (!id) { showToast('Select a competition', 'error'); return; }
+  conductDrawForComp(parseInt(id));
+}
+
+function conductDrawForComp(id) {
+  const c = competitions.find(x => x.id === id);
+  if (!c) return;
+  
+  const entrants = state.orders.filter(o => o.compId === id && o.correct);
+  
+  // Generate random winner
+  const winnerTicket = Math.floor(Math.random() * c.soldTickets) + 1;
+  let winner;
+  if (entrants.length > 0) {
+    winner = entrants[Math.floor(Math.random() * entrants.length)];
+  }
+  const winnerName = winner ? winner.userName : 'Lucky Entrant #' + winnerTicket;
+  
+  const draw = {
+    competition: c.title,
+    winner: winnerName,
+    ticketNum: winnerTicket,
+    date: new Date().toLocaleDateString('en-IN')
+  };
+  state.draws.push(draw);
+  
+  document.getElementById('drawModalContent').innerHTML = `
+    <div style="padding: 2rem;">
+      <div style="font-size: 4rem; margin-bottom: 1rem;">🎉</div>
+      <div style="font-family:var(--font-display); font-size:2.5rem; letter-spacing:3px; color:var(--gold); margin-bottom:0.5rem;">${winnerName}</div>
+      <div style="color:var(--gray); margin-bottom:1rem;">has won</div>
+      <div style="font-family:var(--font-display); font-size:1.8rem; letter-spacing:2px; margin-bottom:1.5rem;">${c.emoji} ${c.title}</div>
+      <div style="background:var(--dark3); border:1px solid var(--gold); padding:1rem; font-family:var(--font-accent); color:var(--gold); font-size:1rem; letter-spacing:4px; margin-bottom:1.5rem;">
+        TICKET #${winnerTicket}
+      </div>
+      <p style="color:var(--gray); font-size:0.85rem;">Winner has been notified via email and SMS.</p>
+    </div>
+  `;
+  openModal('drawModal');
+  c.status = 'completed';
+  renderAdmin();
+}
+
+function savePaymentSettings() {
+  const key = document.getElementById('rzpKeyId').value;
+  if (!key) { showToast('Enter Razorpay Key ID', 'error'); return; }
+  showToast('Payment settings saved! Razorpay integrated.', 'success');
+}
+
+// ============================================================
+// MODALS
+// ============================================================
+function openModal(id) {
+  document.getElementById(id).classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal(id) {
+  document.getElementById(id).classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+// Close modal on overlay click
+document.querySelectorAll('.modal-overlay').forEach(overlay => {
+  overlay.addEventListener('click', function(e) {
+    if (e.target === this) closeModal(this.id);
+  });
+});
+
+// ============================================================
+// TOAST
+// ============================================================
+let toastTimeout;
+function showToast(msg, type = 'info') {
+  const toast = document.getElementById('toast');
+  const toastMsg = document.getElementById('toastMsg');
+  const toastTitle = document.getElementById('toastTitle');
+  
+  toast.className = 'toast ' + type;
+  toastMsg.textContent = msg;
+  toastTitle.textContent = type === 'success' ? '✓ SUCCESS' : type === 'error' ? '✕ ERROR' : 'NOTIFICATION';
+  
+  toast.classList.add('show');
+  clearTimeout(toastTimeout);
+  toastTimeout = setTimeout(() => toast.classList.remove('show'), 4000);
+}
+
+// ============================================================
+// UTILS
+// ============================================================
+function formatINR(n) {
+  if (n >= 10000000) return (n/10000000).toFixed(1) + ' Cr';
+  if (n >= 100000) return (n/100000).toFixed(1) + ' L';
+  return n.toLocaleString('en-IN');
+}
+
+function formatCard(input) {
+  let val = input.value.replace(/\D/g,'').substring(0,16);
+  input.value = val.replace(/(.{4})/g,'$1 ').trim();
+}
+
+function toggleMobileNav() {
+  document.getElementById('mobileNav').classList.toggle('open');
+}
+
+// ============================================================
+// FAQ
+// ============================================================
+function renderFaq() {
+  const el = document.getElementById('faqList');
+  if (!el) return;
+  el.innerHTML = faqs.map((f, i) => `
+    <div style="margin-bottom: 1rem; border: 1px solid var(--dark3); background: var(--dark2);">
+      <div onclick="toggleFaq(${i})" style="padding: 1.2rem 1.5rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-weight: 700; font-size: 1rem;">
+        <span>${f.q}</span>
+        <span id="faqIcon${i}" style="color: var(--red); font-size: 1.2rem; transition: transform 0.3s;">+</span>
+      </div>
+      <div id="faqAns${i}" style="display:none; padding: 0 1.5rem 1.2rem; color: var(--gray); line-height: 1.8; font-size: 0.95rem;">${f.a}</div>
+    </div>
+  `).join('');
+}
+
+function toggleFaq(i) {
+  const ans = document.getElementById('faqAns' + i);
+  const icon = document.getElementById('faqIcon' + i);
+  const isOpen = ans.style.display === 'block';
+  ans.style.display = isOpen ? 'none' : 'block';
+  icon.textContent = isOpen ? '+' : '−';
+}
+
+// ============================================================
+// LIVE TICKET SIMULATION ENGINE
+// Simulates real-time ticket purchases from other users
+// ============================================================
+function updateLiveMeters() {
+  competitions.forEach(c => {
+    const pctEl   = document.getElementById('pct-' + c.id);
+    const remEl   = document.getElementById('rem-' + c.id);
+    const barEl   = document.getElementById('bar-' + c.id);
+    const bgEl    = barEl?.parentElement?.previousElementSibling;
+
+    if (!pctEl) return;
+
+    const pct   = Math.round((c.soldTickets / c.totalTickets) * 100);
+    const rem   = c.totalTickets - c.soldTickets;
+    const level = getSoldLevel(pct);
+
+    pctEl.textContent = pct + '%';
+    pctEl.className = 'sold-pct-big ' + level;
+
+    if (remEl) {
+      remEl.textContent = rem.toLocaleString('en-IN');
+      remEl.classList.add('tick');
+      setTimeout(() => remEl.classList.remove('tick'), 300);
+    }
+
+    if (barEl) {
+      barEl.style.width = pct + '%';
+      barEl.className = 'progress-fill' + (level === 'critical' || level === 'high' ? ' ' + level : '');
+    }
+  });
+}
+
+// Simulate other users buying tickets (random trickle)
+function simulateLivePurchases() {
+  const liveComps = competitions.filter(c => c.status === 'live' && c.soldTickets < c.totalTickets);
+  if (liveComps.length === 0) return;
+
+  const c = liveComps[Math.floor(Math.random() * liveComps.length)];
+  const qty = Math.floor(Math.random() * 5) + 1;
+  c.soldTickets = Math.min(c.totalTickets, c.soldTickets + qty);
+
+  updateLiveMeters();
+
+  // Update detail page if open
+  const detailBar = document.querySelector('#compDetailContent .progress-fill');
+  if (detailBar && state.currentComp && state.currentComp.id === c.id) {
+    const pct = Math.round((c.soldTickets / c.totalTickets) * 100);
+    detailBar.style.width = pct + '%';
+  }
+}
+
+// Run simulated live purchases every 4–12 seconds
+function scheduleLivePurchase() {
+  const delay = 4000 + Math.random() * 8000;
+  setTimeout(() => {
+    simulateLivePurchases();
+    scheduleLivePurchase();
+  }, delay);
+}
+
+scheduleLivePurchase();
+
+// COUNTDOWN TIMER (every second)
+setInterval(() => {
+  competitions.forEach(c => {
+    const el = document.getElementById('countdown-' + c.id);
+    if (el) el.innerHTML = renderCountdown(getTimeLeft(c.endDate));
+    const detailEl = document.getElementById('detailCountdown');
+    if (detailEl && state.currentComp && state.currentComp.id === c.id) {
+      detailEl.innerHTML = renderCountdown(getTimeLeft(c.endDate));
+    }
+  });
+}, 1000);
+
+// ============================================================
+// SCROLL BEHAVIOR
+// ============================================================
+window.addEventListener('scroll', () => {
+  const backTop = document.getElementById('backTop');
+  if (window.scrollY > 300) backTop.classList.add('visible');
+  else backTop.classList.remove('visible');
+});
+
+// ============================================================
+// INIT
+// ============================================================
+renderFeaturedComps();
+renderHomeWinners();
+
+// Animate stat counter on home page
+let statsAnimated = false;
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting && !statsAnimated) {
+      statsAnimated = true;
+    }
+  });
+});
+
+const heroStats = document.querySelector('.hero-stats');
+if (heroStats) observer.observe(heroStats);
+
+// Pre-fill admin link check
+if (state.user && state.user.role === 'admin') {
+  document.getElementById('adminNavLink').style.display = 'block';
+}
+
+console.log('%cALPHA PLATFORM', 'color: #E0001B; font-size: 24px; font-weight: bold;');
+console.log('%cAdmin: admin@alpha.in | Password: Alpha@Admin2024', 'color: #FFD700;');
+</script>
+</body>
+</html>
